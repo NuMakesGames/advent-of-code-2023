@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Puzzles">
+      <UniqueIdentifier>{68430c84-f8fe-4ba7-87f4-4cc6d5c929eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Puzzle Inputs">
+      <UniqueIdentifier>{bed5b51e-7feb-44d2-bde9-41e516393d35}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AdventOfCode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CodeGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle01A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle01B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle02A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle02B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle03A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle03B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle04A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle04B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle05A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle05B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle06A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle06B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle07A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle07B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle08A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle08B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle09A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle09B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle10A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle10B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle11A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle11B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle12A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle12B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle13A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle13B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle14A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle14B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle15A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle15B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle16A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle16B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle17A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle17B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle18A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle18B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle19A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle19B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle20A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle20B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle21A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle21B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle22A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle22B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle23A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle23B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle24A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle24B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle25A.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle25B.cpp">
+      <Filter>Puzzles</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PuzzleSolvers.h">
+      <Filter>Puzzles</Filter>
+    </ClInclude>
+    <ClInclude Include="CodeGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Puzzle01.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle02.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle03.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle04.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle05.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle06.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle07.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle08.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle09.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle10.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle11.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle12.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle13.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle14.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle15.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle16.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle17.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle18.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle19.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle20.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle21.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle22.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle23.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle24.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle25.input">
+      <Filter>Puzzle Inputs</Filter>
+    </None>
+  </ItemGroup>
+</Project>
