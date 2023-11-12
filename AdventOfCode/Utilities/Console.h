@@ -83,7 +83,7 @@ namespace Utilities
 	{
 	public:
 		ConsoleRenderer();
-		ConsoleRenderer(int width, int height);
+		ConsoleRenderer(int width, int height, int spriteWidth = 2);
 
 		// Clears the back buffer
 		void Clear();
@@ -153,6 +153,9 @@ namespace Utilities
 		// Copies the back buffer to the front buffer and renders its contents
 		void Present();
 
+		// Manually sets the starting cursor position for the renderer
+		void SetCursorPosition(const Vector2d<int>& cursorPosition);
+
 	private:
 		// Attempts to resize/scroll the console as necessary
 		void MakeViewportVisible();
@@ -160,6 +163,7 @@ namespace Utilities
 		Vector2d<int> m_cursorPosition;
 		int m_width = 0;
 		int m_height = 0;
+		int m_spriteWidth = 2;
 
 		Grid2d<ConsoleSprite> m_frontBuffer;
 		Grid2d<ConsoleSprite> m_backBuffer;

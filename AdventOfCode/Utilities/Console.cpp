@@ -92,13 +92,14 @@ namespace Utilities
 		::SetConsoleTextAttribute(hOut, m_attributes);
 	}
 
-	ConsoleRenderer::ConsoleRenderer() : ConsoleRenderer(50, 50)
+	ConsoleRenderer::ConsoleRenderer() : ConsoleRenderer(50, 50, 2)
 	{
 	}
 
-	ConsoleRenderer::ConsoleRenderer(int width, int height)
+	ConsoleRenderer::ConsoleRenderer(int width, int height, int spriteWidth)
 		: m_width(width)
 		, m_height(height)
+		, m_spriteWidth(spriteWidth)
 		, m_frontBuffer(m_width, m_height)
 		, m_backBuffer(m_width, m_height)
 		, m_cursorPosition(GetConsoleCursorPosition())
@@ -164,7 +165,7 @@ namespace Utilities
 				}
 
 				// If different, render it
-				SetConsoleCursorPosition(Vector2d<int>{ m_cursorPosition.x + x * 2, m_cursorPosition.y + y });
+				SetConsoleCursorPosition(Vector2d<int>{ m_cursorPosition.x + x * m_spriteWidth, m_cursorPosition.y + y });
 				SetConsoleTextColor(sprite.color);
 				std::cout << sprite.character;
 			}
@@ -180,6 +181,11 @@ namespace Utilities
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
 
+	void ConsoleRenderer::SetCursorPosition(const Vector2d<int>& cursorPosition)
+	{
+		m_cursorPosition = cursorPosition;
+	}
+
 	void ConsoleRenderer::MakeViewportVisible()
 	{
 		CONSOLE_SCREEN_BUFFER_INFOEX csbi;
@@ -192,30 +198,30 @@ namespace Utilities
 		bool shouldUpdateScreenBuffer = false;
 
 		// Make sure the buffer is large enough
-		if (csbi.dwSize.X < m_width * 2 || csbi.dwSize.Y < m_height)
+		if (csbi.dwSize.X < m_width * m_spriteWidth || csbi.dwSize.Y < m_height)
 		{
 			// Add a little vertical slack when resizing to avoid any unnecessary scrolling
 			constexpr int slack = 10;
-			csbi.dwSize.X = max(csbi.dwSize.X, static_cast<SHORT>(m_width) * 2);
+			csbi.dwSize.X = max(csbi.dwSize.X, static_cast<SHORT>(m_width) * m_spriteWidth);
 			csbi.dwSize.Y = max(csbi.dwSize.Y, static_cast<SHORT>(m_height) + slack);
 			shouldUpdateScreenBuffer = true;
 		}
 
 		// Make sure the window rect is large enough
-		if (csbi.srWindow.Right - csbi.srWindow.Left < m_width * 2 || csbi.srWindow.Bottom - csbi.srWindow.Top < m_height)
+		if (csbi.srWindow.Right - csbi.srWindow.Left < m_width * m_spriteWidth || csbi.srWindow.Bottom - csbi.srWindow.Top < m_height)
 		{
 			// Add a little vertical slack when resizing to avoid any unnecessary scrolling
 			constexpr int slack = 10;
-			csbi.srWindow.Right = max(csbi.srWindow.Right, m_width * 2);
+			csbi.srWindow.Right = max(csbi.srWindow.Right, m_width * m_spriteWidth);
 			csbi.srWindow.Bottom = max(csbi.srWindow.Bottom, m_height + slack);
 			shouldUpdateScreenBuffer = true;
 		}
 
 		// Make sure the viewport is on screen horizontally
-		if (csbi.srWindow.Right < m_cursorPosition.x + m_width * 2)
+		if (csbi.srWindow.Right < m_cursorPosition.x + m_width * m_spriteWidth)
 		{
 			SHORT horizontal = csbi.srWindow.Right - csbi.srWindow.Left;
-			csbi.srWindow.Right = m_cursorPosition.x + m_width * 2;
+			csbi.srWindow.Right = m_cursorPosition.x + m_width * m_spriteWidth;
 			csbi.srWindow.Left = csbi.srWindow.Right - horizontal;
 			shouldUpdateScreenBuffer = true;
 		}
