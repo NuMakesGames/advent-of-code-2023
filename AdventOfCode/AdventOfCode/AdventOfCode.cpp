@@ -6,8 +6,6 @@
 #include "../Utilities/Utilities.h"
 #include "PuzzleSolvers.h"
 
-#include "CodeGenerator.h"
-
 int main()
 {
 	constexpr auto partASolver = &Puzzle01A::PrintSolution;
