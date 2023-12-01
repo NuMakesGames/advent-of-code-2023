@@ -50,7 +50,7 @@ namespace Puzzle01B
 				if (iPosFirst != std::string::npos && iPosFirst < iFirst)
 				{
 					first = value;
-					iFirst = static_cast<int>(iPosFirst);
+					iFirst = iPosFirst;
 				}
 
 				// Search from back of the current line
@@ -58,7 +58,7 @@ namespace Puzzle01B
 				if (iPosLast != std::string::npos && iPosLast > iLast)
 				{
 					last = value;
-					iLast = static_cast<int>(iPosLast);
+					iLast = iPosLast;
 				}
 			};
 
