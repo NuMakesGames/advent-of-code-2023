@@ -4,7 +4,6 @@
 
 namespace Utilities
 {
-
 	std::vector<std::string> ReadAllLinesInFile(const std::filesystem::path& path)
 	{
 		auto lines = std::vector<std::string>{};
@@ -66,19 +65,37 @@ namespace Utilities
 		return fileStream.good();
 	}
 
-	std::vector<std::string> SplitString(const std::string& input, const std::string& delimiter)
+	std::vector<size_t> FindAllInString(std::string_view input, std::string_view delimiter)
 	{
-		return Utilities::SplitStringAndTransform<std::string>(input, delimiter, [](const std::string& token) { return token; });
+		std::vector<size_t> results;
+		if (delimiter.empty())
+		{
+			return results;
+		}
+
+		for (size_t i = input.find(delimiter); i != std::string::npos; i = input.find(delimiter, i + 1))
+		{
+			results.emplace_back(i);
+		}
+
+		return results;
 	}
 
-	std::vector<int> SplitCommaSeparatedInt32s(const std::string& input)
+	std::vector<std::string> SplitString(std::string_view input, std::string_view delimiter)
 	{
-		return Utilities::SplitStringAndTransform<int>(input, ",", [](const std::string& token) { return std::stoi(token); });
+		return Utilities::SplitStringAndTransform<std::string>(
+			input, delimiter, [](std::string_view token) { return std::string{ token }; });
 	}
 
-	std::vector<int64_t> SplitCommaSeparatedInt64s(const std::string& input)
+	std::vector<int> SplitCommaSeparatedInt32s(std::string_view input)
 	{
-		return Utilities::SplitStringAndTransform<int64_t>(input, ",", [](const std::string& token) { return std::stoll(token); });
+		return Utilities::SplitStringAndTransform<int>(input, ",", [](std::string_view token) { return std::stoi(std::string{ token }); });
+	}
+
+	std::vector<int64_t> SplitCommaSeparatedInt64s(std::string_view input)
+	{
+		return Utilities::SplitStringAndTransform<int64_t>(
+			input, ",", [](std::string_view token) { return std::stoll(std::string{ token }); });
 	}
 
 } // namespace Utilities

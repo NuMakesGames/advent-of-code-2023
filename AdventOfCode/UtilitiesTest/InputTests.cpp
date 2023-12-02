@@ -1,4 +1,5 @@
 #include "pch.h"
+
 #include "../Utilities/Utilities.h"
 
 TEST(ReadAllLinesInFileTests, HandlesFileThatDoesNotExist)
@@ -35,6 +36,73 @@ TEST(ReadAllLinesInFileAsGridTests, HandlesBasicTextFile)
 		{
 			EXPECT_EQ(grid.at(x, y), lines[y][x]);
 		}
+	}
+}
+
+TEST(FindAllInStringTests, HandlesEmptyInput)
+{
+	auto result = Utilities::FindAllInString("", ",");
+	EXPECT_EQ(result.size(), 0);
+}
+
+TEST(FindAllInStringTests, HandlesEmptyDelimiter)
+{
+	auto result = Utilities::FindAllInString("test", "");
+	EXPECT_EQ(result.size(), 0);
+}
+
+TEST(FindAllInStringTests, HandlesSimpleDelimiters)
+{
+	{
+		auto result = Utilities::FindAllInString("this is a test", " ");
+		ASSERT_EQ(result.size(), 3);
+		EXPECT_EQ(result[0], 4);
+		EXPECT_EQ(result[1], 7);
+		EXPECT_EQ(result[2], 9);
+	}
+
+	{
+		auto result = Utilities::FindAllInString("1,2,3,4,5,6,7,8,9,10", ",");
+		ASSERT_EQ(result.size(), 9);
+		for (auto i = 0; i < result.size(); ++i)
+		{
+			EXPECT_EQ(result[i], i * 2 + 1);
+		}
+	}
+}
+
+TEST(FindAllInStringTests, HandlesTrailingDelimiter)
+{
+	auto result = Utilities::FindAllInString("a,b,c,", ",");
+	ASSERT_EQ(result.size(), 3);
+	EXPECT_EQ(result[0], 1);
+	EXPECT_EQ(result[1], 3);
+	EXPECT_EQ(result[2], 5);
+}
+
+TEST(FindAllInStringTests, HandlesEmptyTokens)
+{
+	auto result = Utilities::FindAllInString("a,b,,c", ",");
+	ASSERT_EQ(result.size(), 3);
+	EXPECT_EQ(result[0], 1);
+	EXPECT_EQ(result[1], 3);
+	EXPECT_EQ(result[2], 4);
+}
+
+TEST(FindAllInStringTests, HandlesComplexDelimiters)
+{
+	{
+		auto result = Utilities::FindAllInString("oh,!my", ",!");
+		ASSERT_EQ(result.size(), 1);
+		EXPECT_EQ(result[0], 2);
+	}
+
+	{
+		auto result = Utilities::FindAllInString("the catcat in the hat laughed at a cat", "cat");
+		ASSERT_EQ(result.size(), 3);
+		EXPECT_EQ(result[0], 4);
+		EXPECT_EQ(result[1], 7);
+		EXPECT_EQ(result[2], 35);
 	}
 }
 
