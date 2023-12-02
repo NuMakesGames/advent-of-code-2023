@@ -9,9 +9,9 @@ namespace Puzzle02B
 {
 	struct Cubes
 	{
-		int blue = 0;
 		int red = 0;
 		int green = 0;
+		int blue = 0;
 	};
 
 	std::vector<std::vector<Cubes>> ReadInput()
