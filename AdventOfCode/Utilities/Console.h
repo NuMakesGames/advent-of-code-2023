@@ -14,9 +14,10 @@ namespace Utilities
 	// Control whether the cursor should be visible
 	void SetConsoleCursorVisible(bool isCursorVisible);
 
-	// Valid colors for console text
-	enum class ConsoleTextColor
+	// Colors composed from FOREGROUND_BLUE, FOREGROUND_GREEN, FOREGROUND_RED, and FOREGROUND_INTENSITY
+	enum class ConsoleForegroundColor
 	{
+		Black = 0,
 		Blue = 1,
 		Green = 2,
 		Cyan = 3,
@@ -24,18 +25,40 @@ namespace Utilities
 		Magenta = 5,
 		Yellow = 6,
 		White = 7,
-		Gray = 8,
-		BrightBlue = 9,
-		BrightGreen = 10,
-		BrightCyan = 11,
-		BrightRed = 12,
-		BrightMagenta = 13,
-		BrightYellow = 14,
-		BrightWhite = 15
+		IntenseBlack = 8,
+		IntenseBlue = 9,
+		IntenseGreen = 10,
+		IntenseCyan = 11,
+		IntenseRed = 12,
+		IntenseMagenta = 13,
+		IntenseYellow = 14,
+		IntenseWhite = 15
 	};
-	ConsoleTextColor& operator++(ConsoleTextColor& c);
+	ConsoleForegroundColor& operator++(ConsoleForegroundColor& c);
 
-	void SetConsoleTextColor(ConsoleTextColor color);
+	// Colors composed from BACKGROUND_BLUE, BACKGROUND_GREEN, BACKGROUND_RED, and BACKGROUND_INTENSITY
+	enum class ConsoleBackgroundColor
+	{
+		Black = 0,
+		Blue = 0x10,
+		Green = 0x20,
+		Cyan = Blue | Green,
+		Red = 0x40,
+		Magenta = Red | Blue,
+		Yellow = Red | Green,
+		White = Red | Green | Blue,
+		IntenseBlack = 0x80,
+		IntenseBlue = IntenseBlack | Blue,
+		IntenseGreen = IntenseBlack | Green,
+		IntenseCyan = IntenseBlack | Cyan,
+		IntenseRed = IntenseBlack | Red,
+		IntenseMagenta = IntenseBlack | Magenta,
+		IntenseYellow = IntenseBlack | Yellow,
+		IntenseWhite = IntenseBlack | White
+	};
+
+	// Changes the color of text written to the console
+	void SetConsoleTextColor(ConsoleForegroundColor foreground, ConsoleBackgroundColor background = ConsoleBackgroundColor::Black);
 
 	// RAII wrapper to disable the console cursor
 	class ScopedConsoleCursorDisable
@@ -57,7 +80,7 @@ namespace Utilities
 	class ScopedConsoleTextColor
 	{
 	public:
-		ScopedConsoleTextColor(ConsoleTextColor color);
+		ScopedConsoleTextColor(ConsoleForegroundColor foreground, ConsoleBackgroundColor background = ConsoleBackgroundColor::Black);
 		~ScopedConsoleTextColor();
 
 		ScopedConsoleTextColor(const ScopedConsoleTextColor&) = delete;
@@ -73,7 +96,8 @@ namespace Utilities
 	struct ConsoleSprite
 	{
 		char character = ' ';
-		ConsoleTextColor color = ConsoleTextColor::Gray;
+		ConsoleForegroundColor foregroundColor = ConsoleForegroundColor::White;
+		ConsoleBackgroundColor backgroundColor = ConsoleBackgroundColor::Black;
 
 		auto operator<=>(const ConsoleSprite&) const = default;
 	};
@@ -85,49 +109,82 @@ namespace Utilities
 		ConsoleRenderer();
 		ConsoleRenderer(int width, int height, int spriteWidth = 2);
 
+		// Configures the renderer to wait the provided number of ms after a call to Present
+		void SetTimeToWaitAfterPresent(std::chrono::milliseconds waitAfterPresent);
+
 		// Clears the back buffer
 		void Clear();
 
 		// Draws text starting at the specified position
-		void DrawString(const Vector2d<int>& position, const std::string& text, ConsoleTextColor color)
+		void DrawString(
+			const Vector2d<int>& position,
+			const std::string& text,
+			ConsoleForegroundColor foreground = ConsoleForegroundColor::White,
+			ConsoleBackgroundColor background = ConsoleBackgroundColor::Black)
 		{
-			DrawString(position.x, position.y, text, color);
+			DrawString(position.x, position.y, text, foreground, background);
 		}
 
 		// Draws text starting at the specified position
-		void DrawString(int x, int y, const std::string& text, ConsoleTextColor color);
+		void DrawString(
+			int x,
+			int y,
+			const std::string& text,
+			ConsoleForegroundColor foreground = ConsoleForegroundColor::White,
+			ConsoleBackgroundColor background = ConsoleBackgroundColor::Black);
 
 		// Draws grid starting at (0, 0)
-		void DrawGrid(const Grid2d<char>& grid, ConsoleTextColor color)
+		void DrawGrid(
+			const Grid2d<char>& grid,
+			ConsoleForegroundColor foreground = ConsoleForegroundColor::White,
+			ConsoleBackgroundColor background = ConsoleBackgroundColor::Black)
 		{
-			DrawGrid(0, 0, grid, color);
+			DrawGrid(0, 0, grid, foreground, background);
 		}
 
 		// Draws grid starting at the specified position
-		void DrawGrid(const Vector2d<int>& position, const Grid2d<char>& grid, ConsoleTextColor color)
+		void DrawGrid(
+			const Vector2d<int>& position,
+			const Grid2d<char>& grid,
+			ConsoleForegroundColor foreground = ConsoleForegroundColor::White,
+			ConsoleBackgroundColor background = ConsoleBackgroundColor::Black)
 		{
-			DrawGrid(position.x, position.y, grid, color);
+			DrawGrid(position.x, position.y, grid, foreground, background);
 		}
 
 		// Draws grid starting at the specified position
-		void DrawGrid(int x, int y, const Grid2d<char>& grid, ConsoleTextColor color);
+		void DrawGrid(
+			int x,
+			int y,
+			const Grid2d<char>& grid,
+			ConsoleForegroundColor foreground = ConsoleForegroundColor::White,
+			ConsoleBackgroundColor background = ConsoleBackgroundColor::Black);
 
 		// Draws the sprite to the specified location
 		void Draw(const Vector2d<int>& position, const ConsoleSprite& sprite);
 
 		// Draws the sprite to the specified location
-		void Draw(const Vector2d<int>& position, char c, ConsoleTextColor color)
+		void Draw(
+			const Vector2d<int>& position,
+			char c,
+			ConsoleForegroundColor foreground = ConsoleForegroundColor::White,
+			ConsoleBackgroundColor background = ConsoleBackgroundColor::Black)
 		{
-			Draw(position, ConsoleSprite{ c, color });
+			Draw(position, ConsoleSprite{ c, foreground, background });
 		}
 
 		// Draws the sprite to the specified location
 		void Draw(int x, int y, const ConsoleSprite& sprite);
 
 		// Draws the sprite to the specified location
-		void Draw(int x, int y, char c, ConsoleTextColor color)
+		void Draw(
+			int x,
+			int y,
+			char c,
+			ConsoleForegroundColor foreground = ConsoleForegroundColor::White,
+			ConsoleBackgroundColor background = ConsoleBackgroundColor::Black)
 		{
-			Draw(x, y, ConsoleSprite{ c, color });
+			Draw(x, y, ConsoleSprite{ c, foreground, background });
 		}
 
 		// Draws the sprite to all specified locations in the range
@@ -142,11 +199,15 @@ namespace Utilities
 
 		// Draws the sprite to all specified locations in the range
 		template<std::ranges::input_range R>
-		void Draw(R&& range, char c, ConsoleTextColor color)
+		void Draw(
+			R&& range,
+			char c,
+			ConsoleForegroundColor foreground = ConsoleForegroundColor::White,
+			ConsoleBackgroundColor background = ConsoleBackgroundColor::Black)
 		{
 			for (const auto& vec : range)
 			{
-				Draw(vec, ConsoleSprite{ c, color });
+				Draw(vec, ConsoleSprite{ c, foreground, background });
 			}
 		}
 
@@ -160,10 +221,12 @@ namespace Utilities
 		// Attempts to resize/scroll the console as necessary
 		void MakeViewportVisible();
 
+		ScopedConsoleCursorDisable m_disableCursor;
 		Vector2d<int> m_cursorPosition;
 		int m_width = 0;
 		int m_height = 0;
 		int m_spriteWidth = 2;
+		std::chrono::milliseconds m_waitAfterPresent = std::chrono::milliseconds(1);
 
 		Grid2d<ConsoleSprite> m_frontBuffer;
 		Grid2d<ConsoleSprite> m_backBuffer;

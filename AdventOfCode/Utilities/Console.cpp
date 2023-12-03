@@ -35,27 +35,27 @@ namespace Utilities
 		::SetConsoleCursorInfo(hOut, &cursorInfo);
 	}
 
-	ConsoleTextColor& operator++(ConsoleTextColor& c)
+	ConsoleForegroundColor& operator++(ConsoleForegroundColor& c)
 	{
 		int underlying = static_cast<int>(c);
 		++underlying;
 
-		if (underlying > static_cast<int>(ConsoleTextColor::BrightWhite))
+		if (underlying > static_cast<int>(ConsoleForegroundColor::IntenseWhite))
 		{
-			underlying = static_cast<int>(ConsoleTextColor::Blue);
+			underlying = static_cast<int>(ConsoleForegroundColor::Black);
 		}
 
-		c = static_cast<ConsoleTextColor>(underlying);
+		c = static_cast<ConsoleForegroundColor>(underlying);
 		return c;
 	}
 
-	void SetConsoleTextColor(ConsoleTextColor color)
+	void SetConsoleTextColor(ConsoleForegroundColor foreground, ConsoleBackgroundColor background)
 	{
 		auto info = CONSOLE_SCREEN_BUFFER_INFO{};
 		if (::GetConsoleScreenBufferInfo(hOut, &info))
 		{
-			auto attributesMinusColor = info.wAttributes & 0xF0;
-			::SetConsoleTextAttribute(hOut, attributesMinusColor | static_cast<WORD>(color));
+			auto attributesMinusColor = info.wAttributes & 0xFF00;
+			::SetConsoleTextAttribute(hOut, attributesMinusColor | static_cast<WORD>(foreground) | static_cast<WORD>(background));
 		}
 	}
 
@@ -76,14 +76,13 @@ namespace Utilities
 		::SetConsoleCursorInfo(hOut, &cursorInfo);
 	}
 
-	ScopedConsoleTextColor::ScopedConsoleTextColor(ConsoleTextColor color)
+	ScopedConsoleTextColor::ScopedConsoleTextColor(ConsoleForegroundColor foreground, ConsoleBackgroundColor background)
 	{
 		auto info = CONSOLE_SCREEN_BUFFER_INFO{};
 		if (::GetConsoleScreenBufferInfo(hOut, &info))
 		{
 			m_attributes = info.wAttributes;
-			auto attributesMinusColor = m_attributes & 0xF0;
-			::SetConsoleTextAttribute(hOut, attributesMinusColor | static_cast<WORD>(color));
+			SetConsoleTextColor(foreground, background);
 		}
 	}
 
@@ -107,27 +106,41 @@ namespace Utilities
 		MakeViewportVisible();
 	}
 
+	void ConsoleRenderer::SetTimeToWaitAfterPresent(std::chrono::milliseconds waitAfterPresent)
+	{
+		m_waitAfterPresent = waitAfterPresent;
+	}
+
 	void ConsoleRenderer::Clear()
 	{
 		std::ranges::fill(m_backBuffer, ConsoleSprite{});
 	}
 
-	void ConsoleRenderer::DrawString(int x, int y, const std::string& text, ConsoleTextColor color)
+	void ConsoleRenderer::DrawString(
+		int x,
+		int y,
+		const std::string& text,
+		ConsoleForegroundColor foreground,
+		ConsoleBackgroundColor background)
 	{
 		for (int i = 0; i < text.size(); ++i)
 		{
-			m_backBuffer.at(x + i, y) = ConsoleSprite{ text[i], color };
+			m_backBuffer.at(x + i, y) = ConsoleSprite{ text[i], foreground, background };
 		}
 	}
 
-
-	void ConsoleRenderer::DrawGrid(int x, int y, const Grid2d<char>& grid, ConsoleTextColor color)
+	void ConsoleRenderer::DrawGrid(
+		int x,
+		int y,
+		const Grid2d<char>& grid,
+		ConsoleForegroundColor foreground,
+		ConsoleBackgroundColor background)
 	{
 		for (int j = 0; j < grid.Height(); ++j)
 		{
 			for (int i = 0; i < grid.Width(); ++i)
 			{
-				m_backBuffer.at(x + i, y + j) = ConsoleSprite{ grid.at(i, j), color };
+				m_backBuffer.at(x + i, y + j) = ConsoleSprite{ grid.at(i, j), foreground, background };
 			}
 		}
 	}
@@ -144,11 +157,8 @@ namespace Utilities
 
 	void ConsoleRenderer::Present()
 	{
-		// Disable the cursor during rendering
-		ScopedConsoleCursorDisable disableCursor;
-
 		// Restore attributes at the end of rendering
-		ScopedConsoleTextColor textColor{ ConsoleTextColor::Gray };
+		ScopedConsoleTextColor textColor{ ConsoleForegroundColor::White };
 
 		// Swap our buffers
 		m_frontBuffer.swap(m_backBuffer);
@@ -166,7 +176,7 @@ namespace Utilities
 
 				// If different, render it
 				SetConsoleCursorPosition(Vector2d<int>{ m_cursorPosition.x + x * m_spriteWidth, m_cursorPosition.y + y });
-				SetConsoleTextColor(sprite.color);
+				SetConsoleTextColor(sprite.foregroundColor, sprite.backgroundColor);
 				std::cout << sprite.character;
 			}
 		}
@@ -178,7 +188,10 @@ namespace Utilities
 		SetConsoleCursorPosition(Vector2d<int>{ m_cursorPosition.x, m_cursorPosition.y + m_height });
 
 		// Pause momentarily so updates are visible
-		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		if (m_waitAfterPresent > std::chrono::milliseconds(0))
+		{
+			std::this_thread::sleep_for(m_waitAfterPresent);
+		}
 	}
 
 	void ConsoleRenderer::SetCursorPosition(const Vector2d<int>& cursorPosition)
