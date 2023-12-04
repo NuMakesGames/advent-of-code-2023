@@ -22,7 +22,7 @@ namespace CodeGenerator
 				builder << "namespace Puzzle" << std::setfill('0') << std::setw(2) << i << suffix;
 				lines.emplace_back(builder.str());
 				lines.emplace_back("{");
-				lines.emplace_back("\tvoid PrintSolution();");
+				lines.emplace_back("\tvoid PrintSolution(const std::filesystem::path& inputFile, bool shouldRender);");
 				lines.emplace_back("}");
 			}
 		}
@@ -54,22 +54,22 @@ namespace CodeGenerator
 				lines.emplace_back(namespaceName);
 
 				lines.emplace_back("{");
-				lines.emplace_back("\tauto ReadInput()");
+				lines.emplace_back("\tauto ReadInput(const std::filesystem::path& inputFile)");
 				lines.emplace_back("\t{");
 
 				builder.str("");
 				builder.clear();
 				builder << "\t\t"
-						<< R"(auto input = ReadAllLinesInFile(")" << puzzleName << R"(.input");)";
+						<< R"(auto input = ReadAllLinesInFile(inputFile);)";
 				lines.emplace_back(builder.str());
 				lines.emplace_back("");
 				lines.emplace_back("\t\treturn input;");
 				lines.emplace_back("\t}");
 				lines.emplace_back("");
 
-				lines.emplace_back("\tvoid PrintSolution()");
+				lines.emplace_back("\tvoid PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)");
 				lines.emplace_back("\t{");
-				lines.emplace_back("\t\tauto input = ReadInput();");
+				lines.emplace_back("\t\tauto input = ReadInput(inputFile);");
 
 				builder.str("");
 				builder.clear();
@@ -96,9 +96,17 @@ namespace CodeGenerator
 		auto lines = std::vector<std::string>{ "" };
 		for (auto i = 1; i <= 25; ++i)
 		{
-			auto builder = std::stringstream{};
-			builder << "Puzzle" << std::setfill('0') << std::setw(2) << i << ".input";
-			Utilities::WriteAllLinesToFile(builder.str(), lines);
+			{
+				auto builder = std::stringstream{};
+				builder << "Puzzle" << std::setfill('0') << std::setw(2) << i << ".input";
+				Utilities::WriteAllLinesToFile(builder.str(), lines);
+			}
+
+			{
+				auto builder = std::stringstream{};
+				builder << "Puzzle" << std::setfill('0') << std::setw(2) << i << "SampleA.input";
+				Utilities::WriteAllLinesToFile(builder.str(), lines);
+			}
 		}
 	}
 } // namespace CodeGenerator

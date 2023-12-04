@@ -14,10 +14,10 @@ namespace Puzzle02B
 		int blue = 0;
 	};
 
-	std::vector<std::vector<Cubes>> ReadInput()
+	std::vector<std::vector<Cubes>> ReadInput(const std::filesystem::path& inputFile)
 	{
 		std::vector<std::vector<Cubes>> games;
-		for (const std::string& line : ReadAllLinesInFile("Puzzle02.input"))
+		for (const std::string& line : ReadAllLinesInFile(inputFile))
 		{
 			// Find where draws start for this game
 			size_t iDrawStart = line.find(':') + 2;
@@ -60,10 +60,10 @@ namespace Puzzle02B
 		return games;
 	}
 
-	void PrintSolution()
+	void PrintSolution(const std::filesystem::path& inputFile, bool /*shouldRender*/)
 	{
 		int acc = 0;
-		for (const std::vector<Cubes>& game : ReadInput())
+		for (const std::vector<Cubes>& game : ReadInput(inputFile))
 		{
 			Cubes required;
 			for (const Cubes& draw : game)

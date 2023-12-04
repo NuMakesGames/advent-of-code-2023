@@ -33,9 +33,9 @@ namespace Puzzle03B
 		return adjacentGears;
 	}
 
-	void PrintSolution()
+	void PrintSolution(const std::filesystem::path& inputFile, bool /*shouldRender*/)
 	{
-		Grid2d<char> grid = ReadAllLinesInFileAsGrid("Puzzle03.input");
+		Grid2d<char> grid = ReadAllLinesInFileAsGrid(inputFile);
 
 		std::unordered_map<Vector2d<int>, std::vector<int>> gearsToAdjacentNumbers;
 		for (int y = 0; y < grid.Height(); ++y)

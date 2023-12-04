@@ -7,16 +7,16 @@ using namespace Utilities;
 
 namespace Puzzle14A
 {
-	auto ReadInput()
+	auto ReadInput(const std::filesystem::path& inputFile)
 	{
-		auto input = ReadAllLinesInFile("Puzzle14.input");
+		auto input = ReadAllLinesInFile(inputFile);
 
 		return input;
 	}
 
-	void PrintSolution()
+	void PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)
 	{
-		auto input = ReadInput();
+		auto input = ReadInput(inputFile);
 
 		std::cout << "Puzzle14A not yet solved!";
 	}

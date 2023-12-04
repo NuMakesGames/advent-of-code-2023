@@ -1,0 +1,128 @@
+{
+  "FileVersion": 2,
+  "Id": "bb066fee-b12a-4547-8dd5-fce885874423",
+  "Items": [
+    {
+      "Id": "fba1409a-4c6e-40f7-b999-54175d795591",
+      "Command": "--sample"
+    },
+    {
+      "Id": "ee8ade4a-c4da-4810-84e7-b272833f2ef5",
+      "Command": "--render"
+    },
+    {
+      "Id": "50e8c912-184a-4837-bd21-942ba4c872ae",
+      "Command": "--partA"
+    },
+    {
+      "Id": "a9dd4382-93f8-45d2-8d85-ac346c8f3aa4",
+      "Command": "--partB"
+    },
+    {
+      "Id": "3b4a3ba9-29d6-4d3e-8006-e79a8942bc71",
+      "Command": "puzzles",
+      "Items": [
+        {
+          "Id": "698198bf-993a-476e-a6b2-0b4c10c53029",
+          "Command": "--puzzle01"
+        },
+        {
+          "Id": "fd673f49-57b1-4a12-9a06-a1177cd4a72b",
+          "Command": "--puzzle02"
+        },
+        {
+          "Id": "da80260d-e7d5-45fe-8fac-37a0bd2435e4",
+          "Command": "--puzzle03"
+        },
+        {
+          "Id": "38e0d908-d0d7-4db0-a4af-00be4a91d16a",
+          "Command": "--puzzle04"
+        },
+        {
+          "Id": "41209fdd-776d-4571-880b-f6281dddcf42",
+          "Command": "--puzzle05"
+        },
+        {
+          "Id": "6dd5a8d9-57ed-442d-bc76-dbeb746fe1d8",
+          "Command": "--puzzle06"
+        },
+        {
+          "Id": "9d0d3091-cca7-4f19-93d7-622a2718b3dd",
+          "Command": "--puzzle07"
+        },
+        {
+          "Id": "c94bc640-00e2-435b-a2fb-8831b9bc4f1e",
+          "Command": "--puzzle08"
+        },
+        {
+          "Id": "59748194-3195-43d9-968b-8d36df5f5d50",
+          "Command": "--puzzle09"
+        },
+        {
+          "Id": "04d5acde-0601-45e6-9c7f-85ff9f7f0adf",
+          "Command": "--puzzle10"
+        },
+        {
+          "Id": "1ad006e4-edb7-42f2-8f48-9d08533ee247",
+          "Command": "--puzzle11"
+        },
+        {
+          "Id": "7ca498e1-3bb2-49db-b5ad-f97a166cc541",
+          "Command": "--puzzle12"
+        },
+        {
+          "Id": "a05fe447-578d-4303-856c-4b9dc6ddd1e4",
+          "Command": "--puzzle13"
+        },
+        {
+          "Id": "76c23408-e978-4f47-869c-dbad474d19cb",
+          "Command": "--puzzle14"
+        },
+        {
+          "Id": "ab68785b-e722-4d7a-90d2-e25b901e5c38",
+          "Command": "--puzzle15"
+        },
+        {
+          "Id": "0517dfaf-1c7c-468a-bd5c-0a4ed52376d4",
+          "Command": "--puzzle16"
+        },
+        {
+          "Id": "ecfa11f4-b1e3-4fa4-9e7d-95800fcabe07",
+          "Command": "--puzzle17"
+        },
+        {
+          "Id": "2b2eafce-df18-4455-b1df-ac43cea3c448",
+          "Command": "--puzzle18"
+        },
+        {
+          "Id": "3bf980db-a518-467c-99dc-8b988d409eb8",
+          "Command": "--puzzle19"
+        },
+        {
+          "Id": "5baa09fa-5d23-471e-8158-c02cc174f5bb",
+          "Command": "--puzzle20"
+        },
+        {
+          "Id": "99c62364-3051-4f7f-8419-1adc54f4ec16",
+          "Command": "--puzzle21"
+        },
+        {
+          "Id": "872bbbcc-2368-4ad3-b3db-7535366c7d32",
+          "Command": "--puzzle22"
+        },
+        {
+          "Id": "36e98882-3efd-4b2e-91a9-d44c4e913181",
+          "Command": "--puzzle23"
+        },
+        {
+          "Id": "1b89dea4-78e1-45c2-aef1-b04e606d98c3",
+          "Command": "--puzzle24"
+        },
+        {
+          "Id": "9fb48daa-1460-4fbf-a01e-298842b606fd",
+          "Command": "--puzzle25"
+        }
+      ]
+    }
+  ]
+}

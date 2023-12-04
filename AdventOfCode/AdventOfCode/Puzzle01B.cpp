@@ -7,10 +7,10 @@ using namespace Utilities;
 
 namespace Puzzle01B
 {
-	void PrintSolution()
+	void PrintSolution(const std::filesystem::path& inputFile, bool /*shouldRender*/)
 	{
 		std::vector<int> calibrationValues;
-		for (const std::string& line : ReadAllLinesInFile("Puzzle01.input"))
+		for (const std::string& line : ReadAllLinesInFile(inputFile))
 		{
 			// Search for first and last digits
 			int first = 0;

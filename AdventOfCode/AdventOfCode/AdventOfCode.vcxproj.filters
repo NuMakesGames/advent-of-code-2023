@@ -19,6 +19,9 @@
     <Filter Include="Puzzle Inputs">
       <UniqueIdentifier>{bed5b51e-7feb-44d2-bde9-41e516393d35}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Puzzle Samples">
+      <UniqueIdentifier>{ae777b5e-2e38-47d0-91c3-d10ad62fa5f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AdventOfCode.cpp">
@@ -267,6 +270,84 @@
     </None>
     <None Include="Puzzle25.input">
       <Filter>Puzzle Inputs</Filter>
+    </None>
+    <None Include="Puzzle01SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle02SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle03SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle04SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle05SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle06SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle07SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle08SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle09SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle10SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle11SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle12SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle13SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle14SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle15SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle16SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle17SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle18SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle19SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle20SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle21SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle22SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle23SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle24SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle25SampleA.input">
+      <Filter>Puzzle Samples</Filter>
+    </None>
+    <None Include="Puzzle01SampleB.input">
+      <Filter>Puzzle Samples</Filter>
     </None>
   </ItemGroup>
 </Project>

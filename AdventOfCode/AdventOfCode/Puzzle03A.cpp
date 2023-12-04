@@ -32,9 +32,9 @@ namespace Puzzle03A
 		return false;
 	}
 
-	void PrintSolution()
+	void PrintSolution(const std::filesystem::path& inputFile, bool /*shouldRender*/)
 	{
-		Grid2d<char> grid = ReadAllLinesInFileAsGrid("Puzzle03.input");
+		Grid2d<char> grid = ReadAllLinesInFileAsGrid(inputFile);
 
 		std::vector<int> numbers;
 		for (int y = 0; y < grid.Height(); ++y)
