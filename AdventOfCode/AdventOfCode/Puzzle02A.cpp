@@ -3,6 +3,7 @@
 #include "../Utilities/Utilities.h"
 #include "PuzzleSolvers.h"
 
+using namespace std::chrono_literals;
 using namespace Utilities;
 
 namespace Puzzle02A
@@ -60,7 +61,65 @@ namespace Puzzle02A
 		return games;
 	}
 
-	void PrintSolution(const std::filesystem::path& inputFile, bool /*shouldRender*/)
+	void RenderGame(int gameId, bool isGameValid, const Cubes& maxCubes, const Cubes& firstInvalidDraw)
+	{
+		ScopedConsoleTextColor textColor(ConsoleForegroundColor::White);
+		std::cout << "Game " << std::setw(3) << gameId << ": ";
+
+		if (isGameValid)
+		{
+			SetConsoleTextColor(ConsoleForegroundColor::IntenseGreen);
+			std::cout << "Valid\n";
+		}
+		else
+		{
+			SetConsoleTextColor(ConsoleForegroundColor::IntenseRed);
+			std::cout << "Invalid";
+
+			SetConsoleTextColor(ConsoleForegroundColor::White);
+			std::cout << " (";
+
+			bool isFirstInvalid = true;
+			if (firstInvalidDraw.red > maxCubes.red)
+			{
+				SetConsoleTextColor(ConsoleForegroundColor::IntenseRed);
+				std::cout << std::setw(2) << firstInvalidDraw.red << " red";
+				isFirstInvalid = false;
+			}
+
+			if (firstInvalidDraw.green > maxCubes.green)
+			{
+				if (!isFirstInvalid)
+				{
+					SetConsoleTextColor(ConsoleForegroundColor::White);
+					std::cout << ", ";
+				}
+
+				SetConsoleTextColor(ConsoleForegroundColor::IntenseGreen);
+				std::cout << std::setw(2) << firstInvalidDraw.green << " green";
+				isFirstInvalid = false;
+			}
+
+			if (firstInvalidDraw.blue > maxCubes.blue)
+			{
+				if (!isFirstInvalid)
+				{
+					SetConsoleTextColor(ConsoleForegroundColor::White);
+					std::cout << ", ";
+				}
+
+				SetConsoleTextColor(ConsoleForegroundColor::IntenseBlue);
+				std::cout << std::setw(2) << firstInvalidDraw.blue << " blue";
+			}
+
+			SetConsoleTextColor(ConsoleForegroundColor::White);
+			std::cout << ")\n";
+		}
+
+		std::cout << std::setw(1);
+	}
+
+	void PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)
 	{
 		auto games = ReadInput(inputFile);
 
@@ -70,11 +129,14 @@ namespace Puzzle02A
 		{
 			// Game is valid only if all draws in the game don't require more cubes than are in the bag
 			bool isGameValid = true;
-			for (const auto& draw : games[i])
+			Cubes firstInvalidDraw;
+			for (const Cubes& draw : games[i])
 			{
 				if (draw.red > maxCubes.red || draw.green > maxCubes.green || draw.blue > maxCubes.blue)
 				{
 					isGameValid = false;
+					firstInvalidDraw = draw;
+					break;
 				}
 			}
 
@@ -83,8 +145,14 @@ namespace Puzzle02A
 				// If the game is valid, add the game number
 				acc += i + 1;
 			}
+
+			// Render result, if requested
+			if (shouldRender)
+			{
+				RenderGame(i + 1, isGameValid, maxCubes, firstInvalidDraw);
+			}
 		}
-	
+
 		std::cout << acc;
 	}
 } // namespace Puzzle02A

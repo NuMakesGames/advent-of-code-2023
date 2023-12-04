@@ -60,13 +60,46 @@ namespace Puzzle02B
 		return games;
 	}
 
-	void PrintSolution(const std::filesystem::path& inputFile, bool /*shouldRender*/)
+	void RenderGame(int gameId, const Cubes& required)
 	{
+		ScopedConsoleTextColor textColor(ConsoleForegroundColor::White);
+		std::cout << "Game " << std::setw(3) << gameId << ": ";
+
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseWhite);
+		std::cout << std::setw(4) << required.red * required.green * required.blue;
+
+		SetConsoleTextColor(ConsoleForegroundColor::White);
+		std::cout << " (";
+
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseRed);
+		std::cout << std::setw(2) << required.red << " red";
+
+		SetConsoleTextColor(ConsoleForegroundColor::White);
+		std::cout << ", ";
+
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseGreen);
+		std::cout << std::setw(2) << required.green << " green";
+
+		SetConsoleTextColor(ConsoleForegroundColor::White);
+		std::cout << ", ";
+
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseBlue);
+		std::cout << std::setw(2) << required.blue << " blue";
+
+		SetConsoleTextColor(ConsoleForegroundColor::White);
+		std::cout << ")\n";
+
+		std::cout << std::setw(1);
+	}
+
+	void PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)
+	{
+		auto games = ReadInput(inputFile);
 		int acc = 0;
-		for (const std::vector<Cubes>& game : ReadInput(inputFile))
+		for (int i = 0; i < games.size(); ++i)
 		{
 			Cubes required;
-			for (const Cubes& draw : game)
+			for (const Cubes& draw : games[i])
 			{
 				required.red = std::max(required.red, draw.red);
 				required.green = std::max(required.green, draw.green);
@@ -74,6 +107,11 @@ namespace Puzzle02B
 			}
 
 			acc += required.red * required.green * required.blue;
+
+			if (shouldRender)
+			{
+				RenderGame(i + 1, required);
+			}
 		}
 
 		std::cout << acc;

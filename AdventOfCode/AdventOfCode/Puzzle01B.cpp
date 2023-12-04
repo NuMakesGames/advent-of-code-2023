@@ -7,18 +7,43 @@ using namespace Utilities;
 
 namespace Puzzle01B
 {
-	void PrintSolution(const std::filesystem::path& inputFile, bool /*shouldRender*/)
+	void RenderCalibrationNumber(std::string_view line, int first, int last, size_t iFirst, size_t sizeFirst, size_t iLast, size_t sizeLast)
+	{
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseCyan);
+		std::cout << first;
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseMagenta);
+		std::cout << last;
+
+		SetConsoleTextColor(ConsoleForegroundColor::White);
+		std::cout << ": ";
+
+		for (int i = 0; i < line.size(); ++i)
+		{
+			if (i >= iFirst && i < iFirst + sizeFirst)
+			{
+				SetConsoleTextColor(ConsoleForegroundColor::IntenseCyan);
+			}
+			else if (i >= iLast && i < iLast + sizeLast)
+			{
+				SetConsoleTextColor(ConsoleForegroundColor::IntenseMagenta);
+			}
+
+			std::cout << line[i];
+			SetConsoleTextColor(ConsoleForegroundColor::White);
+		}
+
+		std::cout << '\n';
+	}
+
+	void PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)
 	{
 		std::vector<int> calibrationValues;
 		for (const std::string& line : ReadAllLinesInFile(inputFile))
 		{
-			// Search for first and last digits
-			int first = 0;
-			int last = 0;
-			size_t iFirst = line.size();
-			size_t iLast = 0;
-
 			// Find the numeric form of the first digit
+			int first = 0;
+			size_t iFirst = line.size();
+			size_t sizeFirst = 0;
 			for (int i = 0; i < line.size(); ++i)
 			{
 				char c = line[i];
@@ -26,11 +51,15 @@ namespace Puzzle01B
 				{
 					first = c - '0';
 					iFirst = i;
+					sizeFirst = 1;
 					break;
 				}
 			}
 
 			// Find the numeric form of the last digit
+			int last = 0;
+			size_t iLast = 0;
+			size_t sizeLast = 0;
 			for (int i = static_cast<int>(line.size()) - 1; i >= 0; --i)
 			{
 				char c = line[i];
@@ -38,6 +67,7 @@ namespace Puzzle01B
 				{
 					last = c - '0';
 					iLast = i;
+					sizeLast = 1;
 					break;
 				}
 			}
@@ -51,6 +81,7 @@ namespace Puzzle01B
 				{
 					first = value;
 					iFirst = iPosFirst;
+					sizeFirst = sv.size();
 				}
 
 				// Search from back of the current line
@@ -59,6 +90,7 @@ namespace Puzzle01B
 				{
 					last = value;
 					iLast = iPosLast;
+					sizeLast = sv.size();
 				}
 			};
 
@@ -72,6 +104,12 @@ namespace Puzzle01B
 			searchAndUpdate("seven", 7);
 			searchAndUpdate("eight", 8);
 			searchAndUpdate("nine", 9);
+
+			// Render the line with the first and last digits highlighted, if enabled
+			if (shouldRender)
+			{
+				RenderCalibrationNumber(line, first, last, iFirst, sizeFirst, iLast, sizeLast);
+			}
 
 			// Capture the two digit calibration number
 			calibrationValues.push_back(first * 10 + last);

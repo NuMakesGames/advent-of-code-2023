@@ -160,6 +160,9 @@ namespace Utilities
 		// Restore attributes at the end of rendering
 		ScopedConsoleTextColor textColor{ ConsoleForegroundColor::White };
 
+		// Capture original console cursor position
+		Vector2d<int> originalCursorPosition = GetConsoleCursorPosition();
+
 		// Swap our buffers
 		m_frontBuffer.swap(m_backBuffer);
 
@@ -184,8 +187,15 @@ namespace Utilities
 		// Copy the contents of the front buffer into the back buffer
 		m_backBuffer = m_frontBuffer;
 
-		// Move cursor below render rect
-		SetConsoleCursorPosition(Vector2d<int>{ m_cursorPosition.x, m_cursorPosition.y + m_height });
+		// Move cursor below render rect; prefer starting position if deeper
+		if (originalCursorPosition.y >= m_cursorPosition.y + m_height)
+		{
+			SetConsoleCursorPosition(originalCursorPosition);
+		}
+		else
+		{
+			SetConsoleCursorPosition(Vector2d<int>{ m_cursorPosition.x, m_cursorPosition.y + m_height });
+		}
 
 		// Pause momentarily so updates are visible
 		if (m_waitAfterPresent > std::chrono::milliseconds(0))
