@@ -196,158 +196,158 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Puzzle01.input">
+    <CopyFileToFolders Include="Puzzle01.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle02.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle02.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle03.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle03.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle04.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle04.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle05.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle05.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle06.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle06.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle07.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle07.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle08.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle08.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle09.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle09.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle10.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle10.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle11.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle11.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle12.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle12.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle13.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle13.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle14.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle14.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle15.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle15.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle16.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle16.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle17.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle17.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle18.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle18.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle19.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle19.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle20.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle20.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle21.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle21.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle22.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle22.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle23.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle23.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle24.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle24.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle25.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle25.input">
       <Filter>Puzzle Inputs</Filter>
-    </None>
-    <None Include="Puzzle01SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle01SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle02SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle01SampleB.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle03SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle02SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle04SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle03SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle05SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle04SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle06SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle05SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle07SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle06SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle08SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle07SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle09SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle08SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle10SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle09SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle11SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle10SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle12SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle11SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle13SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle12SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle14SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle13SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle15SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle14SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle16SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle15SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle17SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle16SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle18SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle17SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle19SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle18SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle20SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle19SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle21SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle20SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle22SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle21SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle23SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle22SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle24SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle23SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle25SampleA.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle24SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
-    <None Include="Puzzle01SampleB.input">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle25SampleA.input">
       <Filter>Puzzle Samples</Filter>
-    </None>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>
