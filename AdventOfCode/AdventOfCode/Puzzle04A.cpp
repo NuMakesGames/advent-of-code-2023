@@ -46,9 +46,57 @@ namespace Puzzle04A
 		return cards;
 	}
 
+	void RenderCards(const std::vector<Card>& cards)
+	{
+		ScopedConsoleTextColor textColor(ConsoleForegroundColor::IntenseWhite);
+		for (int i = 0; i < cards.size(); ++i)
+		{
+			const Card& card = cards[i];
+			std::unordered_set<int> winners;
+			winners.insert_range(card.GetWinners());
+			int score = !winners.empty() ? static_cast<int>(std::pow(2, winners.size() - 1)) : 0;
+
+			SetConsoleTextColor(ConsoleForegroundColor::IntenseWhite);
+			std::cout << "Card " << std::setw(3) << i + 1;
+
+			SetConsoleTextColor(ConsoleForegroundColor::White);
+			std::cout << " is worth ";
+
+			SetConsoleTextColor(ConsoleForegroundColor::IntenseYellow);
+			std::cout << std::setw(3) << score << " points";
+			
+			SetConsoleTextColor(ConsoleForegroundColor::White);
+			std::cout << ":";
+
+			for (int number : card.winningNumbers)
+			{
+				SetConsoleTextColor(winners.contains(number) ? ConsoleForegroundColor::IntenseGreen : ConsoleForegroundColor::White);
+				std::cout << " " << std::setw(2) << number;
+			}
+
+			SetConsoleTextColor(ConsoleForegroundColor::White);
+			std::cout << " |";
+
+			for (int number : card.numbers)
+			{
+				SetConsoleTextColor(winners.contains(number) ? ConsoleForegroundColor::IntenseGreen : ConsoleForegroundColor::White);
+				std::cout << " " << std::setw(2) << number;
+			}
+
+			SetConsoleTextColor(ConsoleForegroundColor::White);
+			std::cout << "\n";
+		}
+	}
+
 	void PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)
 	{
 		std::vector<Card> cards = ReadInput(inputFile);
+
+		if (shouldRender)
+		{
+			RenderCards(cards);
+		}
+
 		std::cout << ranges::accumulate(
 			cards,
 			0,

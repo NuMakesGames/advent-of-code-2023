@@ -46,6 +46,62 @@ namespace Puzzle04B
 		return cards;
 	}
 
+	void RenderCard(const Card& card, const std::vector<int>& cardCounts, int cardId, size_t wins)
+	{
+		ScopedConsoleTextColor textColor(ConsoleForegroundColor::IntenseWhite);
+
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseWhite);
+		std::cout << "Card " << std::setw(3) << cardId;
+
+		SetConsoleTextColor(ConsoleForegroundColor::White);
+		std::cout << " has ";
+
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseGreen);
+		std::cout << std::setw(2) << wins << " winning numbers";
+
+		SetConsoleTextColor(ConsoleForegroundColor::White);
+		std::cout << ". ";
+
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseYellow);
+		std::cout << std::setw(6) << cardCounts[cardId - 1];
+		
+		SetConsoleTextColor(ConsoleForegroundColor::White);
+		std::cout << (cardCounts[cardId - 1] > 1 ? " copies " : " copy   ") << " of ";
+
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseWhite);
+		std::cout << " card " << cardId;
+
+		if (wins > 0)
+		{
+			SetConsoleTextColor(ConsoleForegroundColor::White);
+			std::cout << " generated: ";
+
+			for (int i = cardId + 1; i <= cardId + wins; ++i)
+			{
+				if (i > cardId + 1)
+				{
+					SetConsoleTextColor(ConsoleForegroundColor::White);
+					std::cout << ", ";
+				}
+
+				SetConsoleTextColor(ConsoleForegroundColor::IntenseYellow);
+				std::cout << std::setw(6) << cardCounts[cardId - 1];
+
+				SetConsoleTextColor(ConsoleForegroundColor::IntenseWhite);
+				std::cout << std::setw(3) << " card " << i;
+			}
+		}
+		else
+		{
+			SetConsoleTextColor(ConsoleForegroundColor::White);
+			std::cout << " generated no additional cards";
+		}
+
+
+		SetConsoleTextColor(ConsoleForegroundColor::White);
+		std::cout << "\n";
+	}
+
 	void PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)
 	{
 		std::vector<Card> cards = ReadInput(inputFile);
@@ -53,13 +109,18 @@ namespace Puzzle04B
 
 		for (int i = 0; i < cards.size(); ++i)
 		{
-			Card& card = cards[i];
+			const Card& card = cards[i];
 			std::vector<int> wins = card.GetWinners();
 
 			// For each instance of current card, generate a bonus card of n-subsequent card, where n is the total number of wins
 			for (int j = i + 1; j <= i + wins.size(); ++j)
 			{
 				cardCounts[j] += cardCounts[i];
+			}
+
+			if (shouldRender)
+			{
+				RenderCard(card, cardCounts, i + 1, wins.size());
 			}
 		}
 

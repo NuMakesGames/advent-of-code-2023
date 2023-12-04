@@ -115,8 +115,6 @@ namespace Puzzle02A
 			SetConsoleTextColor(ConsoleForegroundColor::White);
 			std::cout << ")\n";
 		}
-
-		std::cout << std::setw(1);
 	}
 
 	void PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)
