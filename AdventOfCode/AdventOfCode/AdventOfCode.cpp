@@ -141,6 +141,32 @@ Args ReadArgs(int argc, char* argv[])
 int main(int argc, char* argv[])
 {
 	Args args = ReadArgs(argc, argv);
+	if (args.puzzlesToRun.empty())
+	{
+		ScopedConsoleTextColor textColor{ ConsoleForegroundColor::IntenseRed };
+		std::cout << "\nNo puzzles specified for execution. Pass desired puzzles as command-line arguments. Sample usage:\n";
+
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseWhite);
+		std::cout << "  AdventOfCode.exe ";
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseGreen);
+		std::cout << "--puzzle04\n";
+
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseWhite);
+		std::cout << "  AdventOfCode.exe ";
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseGreen);
+		std::cout << "--render --puzzle01 --puzzle02\n";
+
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseWhite);
+		std::cout << "  AdventOfCode.exe ";
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseGreen);
+		std::cout << "--partB --puzzle02\n";
+
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseWhite);
+		std::cout << "  AdventOfCode.exe ";
+		SetConsoleTextColor(ConsoleForegroundColor::IntenseGreen);
+		std::cout << "--partA --sample --puzzle03\n";
+	}
+
 	for (int puzzleId : args.puzzlesToRun)
 	{
 		for (auto i = 0; i < 2; ++i)
@@ -183,8 +209,12 @@ int main(int argc, char* argv[])
 					std::cout << ":\n";
 				}
 
+				// Fully qualify the path to the input files, which have been copied next to the executable.
+				static const std::filesystem::path executablePath = argv[0];
+				std::filesystem::path fullInputPath = executablePath.parent_path() / inputPath;
+
 				auto start = std::chrono::high_resolution_clock::now();
-				solver(inputPath, args.shouldRender);
+				solver(fullInputPath, args.shouldRender);
 				auto stop = std::chrono::high_resolution_clock::now();
 				auto durationMs = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
 
