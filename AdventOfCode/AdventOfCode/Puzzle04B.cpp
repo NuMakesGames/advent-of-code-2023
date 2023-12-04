@@ -66,10 +66,10 @@ namespace Puzzle04B
 		std::cout << std::setw(6) << cardCounts[cardId - 1];
 		
 		SetConsoleTextColor(ConsoleForegroundColor::White);
-		std::cout << (cardCounts[cardId - 1] > 1 ? " copies " : " copy   ") << " of ";
+		std::cout << std::setw(6) << (cardCounts[cardId - 1] > 1 ? " copies " : " copy   ") << " of ";
 
 		SetConsoleTextColor(ConsoleForegroundColor::IntenseWhite);
-		std::cout << " card " << cardId;
+		std::cout << " card " << std::setw(3) << cardId;
 
 		if (wins > 0)
 		{
@@ -88,7 +88,7 @@ namespace Puzzle04B
 				std::cout << std::setw(6) << cardCounts[cardId - 1];
 
 				SetConsoleTextColor(ConsoleForegroundColor::IntenseWhite);
-				std::cout << std::setw(3) << " card " << i;
+				std::cout << " card " << std::setw(3) << i;
 			}
 		}
 		else
