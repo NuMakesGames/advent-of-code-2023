@@ -5,3 +5,4 @@ Each solution has a corresponding solution overview video on YouTube:
 - [Day 1](https://youtu.be/_igWZykCuZQ) (3 minutes)
 - [Day 2](https://youtu.be/9GiVCwo0t74) (4 minutes)
 - [Day 3](https://youtu.be/qGpD72JYHi0) (7 minutes)
+- [Day 4](https://youtu.be/RaVmdN2DBg4) (5 minutes)

@@ -7,17 +7,63 @@ using namespace Utilities;
 
 namespace Puzzle04B
 {
-	auto ReadInput(const std::filesystem::path& inputFile)
+	struct Card
 	{
-		auto input = ReadAllLinesInFile(inputFile);
+		std::vector<int> winningNumbers;
+		std::vector<int> numbers;
 
-		return input;
+		std::vector<int> GetWinners() const
+		{
+			// Winners are the intersection of the card's numbers and the winning numbers
+			std::vector<int> intersection;
+			std::ranges::set_intersection(winningNumbers, numbers, std::back_inserter(intersection));
+			return intersection;
+		}
+	};
+
+	std::vector<Card> ReadInput(const std::filesystem::path& inputFile)
+	{
+		std::vector<Card> cards;
+		std::vector<std::string> input = ReadAllLinesInFile(inputFile);
+		for (const std::string& line : input)
+		{
+			// Parse winning numbers
+			size_t iWinningNumbersBegin = line.find(':') + 2;
+			size_t iWinningNumbersEnd = line.find('|');
+			std::istringstream issWinningNumbers(line.substr(iWinningNumbersBegin, iWinningNumbersEnd - iWinningNumbersBegin));
+			std::vector<int> winningNumbers{ std::istream_iterator<int>{ issWinningNumbers }, std::istream_iterator<int>() };
+			std::ranges::sort(winningNumbers);
+
+			// Parse card's numbers
+			size_t iNumbersBegin = iWinningNumbersEnd + 2;
+			std::istringstream issNumbers(line.substr(iWinningNumbersEnd + 2));
+			std::vector<int> numbers{ std::istream_iterator<int>{ issNumbers }, std::istream_iterator<int>() };
+			std::ranges::sort(numbers);
+
+			cards.emplace_back(std::move(winningNumbers), std::move(numbers));
+		}
+
+		return cards;
 	}
 
 	void PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)
 	{
-		auto input = ReadInput(inputFile);
+		std::vector<Card> cards = ReadInput(inputFile);
+		std::vector<int> cardCounts(cards.size(), 1);
 
-		std::cout << "Puzzle04B not yet solved!";
+		for (int i = 0; i < cards.size(); ++i)
+		{
+			Card& card = cards[i];
+			std::vector<int> wins = card.GetWinners();
+
+			// For each instance of current card, generate a bonus card of n-subsequent card, where n is the total number of wins
+			for (int j = i + 1; j <= i + wins.size(); ++j)
+			{
+				cardCounts[j] += cardCounts[i];
+			}
+		}
+
+		// Count all cards
+		std::cout << ranges::accumulate(cardCounts, 0);
 	}
 } // namespace Puzzle04B

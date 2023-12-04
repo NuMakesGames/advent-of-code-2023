@@ -182,6 +182,7 @@ int main(int argc, char* argv[])
 					SetConsoleTextColor(ConsoleForegroundColor::IntenseWhite);
 					std::cout << ":\n";
 				}
+
 				auto start = std::chrono::high_resolution_clock::now();
 				solver(inputPath, args.shouldRender);
 				auto stop = std::chrono::high_resolution_clock::now();
