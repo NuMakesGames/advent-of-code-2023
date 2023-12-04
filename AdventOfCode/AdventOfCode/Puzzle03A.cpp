@@ -3,6 +3,7 @@
 #include "../Utilities/Utilities.h"
 #include "PuzzleSolvers.h"
 
+using namespace std::literals::chrono_literals;
 using namespace Utilities;
 
 namespace Puzzle03A
@@ -32,13 +33,31 @@ namespace Puzzle03A
 		return false;
 	}
 
-	void PrintSolution(const std::filesystem::path& inputFile, bool /*shouldRender*/)
+	void PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)
 	{
 		Grid2d<char> grid = ReadAllLinesInFileAsGrid(inputFile);
+
+		// Render visualization, if requested
+		ConsoleRenderer renderer{ grid.Width(), grid.Height(), 1 };
+		if (shouldRender)
+		{
+			renderer.SetRestoreCursorAfterPresent(false);
+			renderer.DrawGrid(grid, ConsoleForegroundColor::White);
+			for (int i = 0; i < grid.size(); ++i)
+			{
+				char c = grid.at(i);
+				if (c != '.' && !std::isdigit(c))
+				{
+					renderer.Draw(grid.GetCoordinatesFromIndex(i), c, ConsoleForegroundColor::IntenseMagenta);
+				}
+			}
+			renderer.Present();
+		}
 
 		std::vector<int> numbers;
 		for (int y = 0; y < grid.Height(); ++y)
 		{
+			int iStart = -1;
 			int currentNumber = 0;
 			bool hasAdjacentSymbol = false;
 			for (int x = 0; x < grid.Width(); ++x)
@@ -49,6 +68,11 @@ namespace Puzzle03A
 				// If the current character is a digit, continue building the current number
 				if (isDigit)
 				{
+					if (iStart < 0)
+					{
+						iStart = x;
+					}
+
 					int digit = c - '0';
 					currentNumber *= 10;
 					currentNumber += digit;
@@ -66,11 +90,32 @@ namespace Puzzle03A
 						numbers.push_back(currentNumber);
 					}
 
+					// Render visualization, if requested
+					if (shouldRender && iStart >= 0)
+					{
+						for (int i = iStart; isDigit ? i <= x : i < x; ++i)
+						{
+							renderer.Draw(
+								i,
+								y,
+								grid.at(i, y),
+								hasAdjacentSymbol ? ConsoleForegroundColor::IntenseGreen : ConsoleForegroundColor::IntenseRed);
+						}
+						renderer.Present();
+					}
+
 					// Reset state for next number
 					hasAdjacentSymbol = false;
 					currentNumber = 0;
+					iStart = -1;
 				}
 			}
+		}
+
+		// Restore cursor position before writing output, if rendering was enabled
+		if (shouldRender)
+		{
+			renderer.MoveCursorBelowRenderer();
 		}
 
 		std::cout << ranges::accumulate(numbers, 0);

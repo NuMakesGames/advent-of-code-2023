@@ -188,13 +188,16 @@ namespace Utilities
 		m_backBuffer = m_frontBuffer;
 
 		// Move cursor below render rect; prefer starting position if deeper
-		if (originalCursorPosition.y >= m_cursorPosition.y + m_height)
+		if (m_shouldRestoreCursorAfterPresent)
 		{
-			SetConsoleCursorPosition(originalCursorPosition);
-		}
-		else
-		{
-			SetConsoleCursorPosition(Vector2d<int>{ m_cursorPosition.x, m_cursorPosition.y + m_height });
+			if (originalCursorPosition.y >= m_cursorPosition.y + m_height)
+			{
+				SetConsoleCursorPosition(originalCursorPosition);
+			}
+			else
+			{
+				SetConsoleCursorPosition(Vector2d<int>{ m_cursorPosition.x, m_cursorPosition.y + m_height });
+			}
 		}
 
 		// Pause momentarily so updates are visible
@@ -207,6 +210,16 @@ namespace Utilities
 	void ConsoleRenderer::SetCursorPosition(const Vector2d<int>& cursorPosition)
 	{
 		m_cursorPosition = cursorPosition;
+	}
+
+	void ConsoleRenderer::SetRestoreCursorAfterPresent(bool shouldRestoreCursorAfterPresent)
+	{
+		m_shouldRestoreCursorAfterPresent = shouldRestoreCursorAfterPresent;
+	}
+
+	void ConsoleRenderer::MoveCursorBelowRenderer()
+	{
+		SetConsoleCursorPosition(Vector2d<int>{ m_cursorPosition.x, m_cursorPosition.y + m_height });
 	}
 
 	void ConsoleRenderer::MakeViewportVisible()

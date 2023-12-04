@@ -217,6 +217,16 @@ namespace Utilities
 		// Manually sets the starting cursor position for the renderer
 		void SetCursorPosition(const Vector2d<int>& cursorPosition);
 
+		// Sets whether the cursor should be moved under the render rect after present.
+		// Set to true if program writes to console while renderer is running.
+		// Set to false to support larger views without the console scrolling.
+		// If disabled, call MoveCursorBelowRenderer manually to place the cursor below the render rect.
+		void SetRestoreCursorAfterPresent(bool shouldRestoreCursorAfterPresent);
+
+		// Manually moves the cursor beneath the render rect. Intended for when SetRestoreCursorAfterPresent is used to
+		// disable automatically restoring the cursor position.
+		void MoveCursorBelowRenderer();
+
 	private:
 		// Attempts to resize/scroll the console as necessary
 		void MakeViewportVisible();
@@ -226,7 +236,8 @@ namespace Utilities
 		int m_width = 0;
 		int m_height = 0;
 		int m_spriteWidth = 2;
-		std::chrono::milliseconds m_waitAfterPresent = std::chrono::milliseconds(1);
+		bool m_shouldRestoreCursorAfterPresent = true;
+		std::chrono::milliseconds m_waitAfterPresent = std::chrono::milliseconds(0);
 
 		Grid2d<ConsoleSprite> m_frontBuffer;
 		Grid2d<ConsoleSprite> m_backBuffer;
