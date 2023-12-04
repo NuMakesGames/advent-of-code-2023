@@ -112,7 +112,7 @@ namespace Puzzle04B
 			const Card& card = cards[i];
 			std::vector<int> wins = card.GetWinners();
 
-			// For each instance of current card, generate a bonus card of n-subsequent card, where n is the total number of wins
+			// For each instance of current card, generate a bonus card for each of n subsequent cards, where n is the total number of wins
 			for (int j = i + 1; j <= i + wins.size(); ++j)
 			{
 				cardCounts[j] += cardCounts[i];

@@ -262,7 +262,7 @@ namespace Utilities
 			shouldUpdateScreenBuffer = true;
 		}
 
-		// Make sure the viewbort is on screen vertically
+		// Make sure the viewport is on screen vertically
 		if (csbi.srWindow.Bottom < m_cursorPosition.y + m_height)
 		{
 			SHORT vertical = csbi.srWindow.Bottom - csbi.srWindow.Top;
