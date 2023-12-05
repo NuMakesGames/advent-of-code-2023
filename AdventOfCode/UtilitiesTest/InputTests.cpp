@@ -229,3 +229,51 @@ TEST(SplitCommaSeparatedInt64sTests, HandlesInt64MinAndInt64Max)
 	EXPECT_EQ(result[0], INT64_MIN);
 	EXPECT_EQ(result[1], INT64_MAX);
 }
+
+TEST(SplitSpaceSeparatedInt32sTests, HandlesEmptyInput)
+{
+	auto result = Utilities::SplitSpaceSeparatedInt32s("");
+	ASSERT_EQ(result.size(), 0);
+}
+
+TEST(SplitSpaceSeparatedInt32sTests, HandlesSimpleCase)
+{
+	auto result = Utilities::SplitSpaceSeparatedInt32s("-1 0 1 2 3");
+	ASSERT_EQ(result.size(), 5);
+	for (auto i = 0; i < result.size(); ++i)
+	{
+		EXPECT_EQ(result[i], i - 1);
+	}
+}
+
+TEST(SplitSpaceSeparatedInt32sTests, HandlesInt32MinAndInt32Max)
+{
+	auto result = Utilities::SplitSpaceSeparatedInt32s("-2147483648 2147483647");
+	ASSERT_EQ(result.size(), 2);
+	EXPECT_EQ(result[0], INT32_MIN);
+	EXPECT_EQ(result[1], INT32_MAX);
+}
+
+TEST(SplitSpaceSeparatedInt64sTests, HandlesEmptyInput)
+{
+	auto result = Utilities::SplitSpaceSeparatedInt64s("");
+	ASSERT_EQ(result.size(), 0);
+}
+
+TEST(SplitSpaceSeparatedInt64sTests, HandlesSimpleCase)
+{
+	auto result = Utilities::SplitSpaceSeparatedInt64s("-1 0 1 2 3");
+	ASSERT_EQ(result.size(), 5);
+	for (auto i = 0; i < result.size(); ++i)
+	{
+		EXPECT_EQ(result[i], i - 1);
+	}
+}
+
+TEST(SplitSpaceSeparatedInt64sTests, HandlesInt64MinAndInt64Max)
+{
+	auto result = Utilities::SplitSpaceSeparatedInt64s("-9223372036854775808 9223372036854775807");
+	ASSERT_EQ(result.size(), 2);
+	EXPECT_EQ(result[0], INT64_MIN);
+	EXPECT_EQ(result[1], INT64_MAX);
+}

@@ -25,6 +25,12 @@ namespace Utilities
 	// Parses comma-separated 64-bit integers.
 	std::vector<int64_t> SplitCommaSeparatedInt64s(std::string_view input);
 
+	// Parses space-separated 32-bit integers.
+	std::vector<int> SplitSpaceSeparatedInt32s(std::string_view input);
+
+	// Parses space-separated 64-bit integers.
+	std::vector<int64_t> SplitSpaceSeparatedInt64s(std::string_view input);
+
 	// Parses the input string into tokens separated by the provided delimiter and applies the supplied
 	// transform to each token.
 	template<typename T>

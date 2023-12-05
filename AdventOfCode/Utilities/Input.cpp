@@ -98,4 +98,14 @@ namespace Utilities
 			input, ",", [](std::string_view token) { return std::stoll(std::string{ token }); });
 	}
 
+	std::vector<int> SplitSpaceSeparatedInt32s(std::string_view input)
+	{
+		return Utilities::SplitStringAndTransform<int>(input, " ", [](std::string_view token) { return std::stoi(std::string{ token }); });
+	}
+
+	std::vector<int64_t> SplitSpaceSeparatedInt64s(std::string_view input)
+	{
+		return Utilities::SplitStringAndTransform<int64_t>(
+			input, " ", [](std::string_view token) { return std::stoll(std::string{ token }); });
+	}
 } // namespace Utilities
