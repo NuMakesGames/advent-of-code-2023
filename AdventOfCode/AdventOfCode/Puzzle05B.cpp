@@ -3,7 +3,6 @@
 #include "../Utilities/Utilities.h"
 #include "PuzzleSolvers.h"
 
-using namespace std::literals::chrono_literals;
 using namespace Utilities;
 
 namespace Puzzle05B
