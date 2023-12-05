@@ -70,32 +70,35 @@ namespace Puzzle05B
 		return std::make_pair(seedRanges, maps);
 	}
 
-	std::mutex coutMutex;
-
-	int64_t FindMinLocation(const SeedRange& range, const std::vector<Map>& maps, int threadId)
+	int64_t FindMinLocation(
+		const SeedRange& range,
+		const std::vector<Map>& maps,
+		int threadId,
+		std::mutex& renderMutex,
+		ConsoleRenderer& renderer,
+		bool shouldRender)
 	{
 		int64_t minLocation = std::numeric_limits<int64_t>::max();
-
-		{
-			std::lock_guard<std::mutex> lock(coutMutex);
-			std::cout << "Thread " << std::setw(2) << threadId << " evaluating " << std::setw(9) << range.length << " seeds\n";
-		}
-
-		auto start = std::chrono::high_resolution_clock::now();
-
 		for (int64_t seed = range.start; seed < range.start + range.length; ++seed)
 		{
-			// Report progress around every 5 seconds
-			int64_t seedIndex = seed - range.start;
-			if (seedIndex % 50000000 == 0)
+			// Report progress periodically
+			if (shouldRender)
 			{
-				auto timeSinceLastLog =
-					std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start);
-				if (timeSinceLastLog > 5000ms)
+				int64_t seedIndex = seed - range.start;
+				if (seedIndex % (range.length / 200) == 0)
 				{
-					std::lock_guard<std::mutex> lock(coutMutex);
-					std::cout << "Thread " << threadId << ": " << static_cast<double>(seedIndex) / range.length * 100.0 << "%\n";
-					start = std::chrono::high_resolution_clock::now();
+					std::lock_guard<std::mutex> lock(renderMutex);
+					renderer.DrawString(
+						0,
+						threadId,
+						std::format(
+							"Thread {:2}: {:9} / {:9} {:3.2f}%",
+							threadId,
+							seedIndex,
+							range.length,
+							static_cast<double>(seedIndex) / range.length * 100),
+						ConsoleForegroundColor::IntenseCyan);
+					renderer.Present();
 				}
 			}
 
@@ -115,9 +118,15 @@ namespace Puzzle05B
 			minLocation = std::min(minLocation, value);
 		}
 
+		if (shouldRender)
 		{
-			std::lock_guard<std::mutex> lock(coutMutex);
-			std::cout << "Thread " << std::setw(2) << threadId << " finished\n";
+			std::lock_guard<std::mutex> lock(renderMutex);
+			renderer.DrawString(
+				0,
+				threadId,
+				std::format("Thread {:2}: {:9} / {:9} {:3.2f}%", threadId, range.length, range.length, 100.0),
+				ConsoleForegroundColor::IntenseGreen);
+			renderer.Present();
 		}
 
 		return minLocation;
@@ -127,8 +136,13 @@ namespace Puzzle05B
 	{
 		auto [seedRanges, maps] = ReadInput(inputFile);
 
-		int64_t totalLength = ranges::accumulate(seedRanges, 0ull, [](int64_t acc, const SeedRange& range) { return acc + range.length; });
-		std::cout << "Total seeds to evaluate: " << totalLength << '\n';
+		if (shouldRender)
+		{
+			std::cout << "Total seeds to evaluate: ";
+			ScopedConsoleTextColor textColor(ConsoleForegroundColor::IntenseYellow);
+			std::cout << ranges::accumulate(seedRanges, 0ull, [](int64_t acc, const SeedRange& range) { return acc + range.length; })
+					  << '\n';
+		}
 
 		// Divide the largest range in half until we have a range for each CPU core
 		int numThreads = std::thread::hardware_concurrency();
@@ -144,17 +158,18 @@ namespace Puzzle05B
 			seedRanges.emplace_back(range.start + halfLength, range.length - halfLength);
 		}
 
+		// Set up the renderer
+		std::mutex renderMutex;
+		ConsoleRenderer renderer{ 100, numThreads, 1 };
+
 		// Run each range in its own thread
 		std::vector<std::thread> threads;
 		std::vector<int64_t> results(seedRanges.size(), std::numeric_limits<int64_t>::max());
 		for (int i = 0; i < seedRanges.size(); ++i)
 		{
 			const SeedRange& range = seedRanges[i];
-			threads.emplace_back(
-				[&results, &maps, i, range]()
-				{
-					results[i] = FindMinLocation(range, maps, i);
-				});
+			threads.emplace_back([&results, range, &maps, i, &renderMutex, &renderer, shouldRender]()
+			                     { results[i] = FindMinLocation(range, maps, i, renderMutex, renderer, shouldRender); });
 		}
 		std::for_each(threads.begin(), threads.end(), [](std::thread& thread) { thread.join(); });
 
