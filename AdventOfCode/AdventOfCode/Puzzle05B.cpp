@@ -10,7 +10,6 @@ namespace Puzzle05B
 {
 	struct MapEntry
 	{
-		int id = -1;
 		int64_t destination = 0;
 		int64_t source = 0;
 		int64_t length = 0;
@@ -64,116 +63,134 @@ namespace Puzzle05B
 
 			// Read all the ints on the line.
 			std::vector<int64_t> tokens = SplitSpaceSeparatedInt64s(line);
-			maps[iMap].entries.emplace_back(i, tokens[0], tokens[1], tokens[2]);
+			maps[iMap].entries.emplace_back(tokens[0], tokens[1], tokens[2]);
 		}
 
 		return std::make_pair(seedRanges, maps);
 	}
 
-	int64_t FindMinLocation(
-		const SeedRange& range,
-		const std::vector<Map>& maps,
-		int threadId,
-		std::mutex& renderMutex,
-		ConsoleRenderer& renderer,
-		bool shouldRender)
+	Map MergeMaps(std::vector<Map> maps)
 	{
-		int64_t minLocation = std::numeric_limits<int64_t>::max();
-		for (int64_t seed = range.start; seed < range.start + range.length; ++seed)
+		// Rewrite each map to cover the entire source number space
+		for (Map& map : maps)
 		{
-			// Report progress periodically
-			if (shouldRender)
+			std::ranges::sort(map.entries, {}, &MapEntry::source);
+			std::vector<MapEntry> newEntries = {};
+
+			int64_t i = 0;
+			for (const MapEntry& entry : map.entries)
 			{
-				int64_t seedIndex = seed - range.start;
-				if (seedIndex % (range.length / 200) == 0)
+				// Add entry for numbers between current position and the next entry
+				if (i < entry.source)
 				{
-					std::lock_guard<std::mutex> lock(renderMutex);
-					renderer.DrawString(
-						0,
-						threadId,
-						std::format(
-							"Thread {:2}: {:9} / {:9} {:3.2f}%",
-							threadId,
-							seedIndex,
-							range.length,
-							static_cast<double>(seedIndex) / range.length * 100),
-						ConsoleForegroundColor::IntenseCyan);
-					renderer.Present();
+					newEntries.emplace_back(i, i, entry.source - i);
+					i += entry.source - i;
 				}
+
+				// Copy the current entry
+				newEntries.emplace_back(entry);
+				i += entry.length;
 			}
 
-			// Evaluate the seed
-			int64_t value = seed;
-			for (const Map& map : maps)
-			{
-				for (const MapEntry& entry : map.entries)
-				{
-					if (entry.source <= value && value < entry.source + entry.length)
-					{
-						value = entry.destination + (value - entry.source);
-						break;
-					}
-				}
-			}
-			minLocation = std::min(minLocation, value);
+			// Cover any remaining numbers
+			newEntries.emplace_back(i, i, std::numeric_limits<int64_t>::max() - i);
+			map.entries.swap(newEntries);
 		}
 
-		if (shouldRender)
+		// Work backwards through the maps merging them together such that the left map's sources map to the right map's destinations
+		while (maps.size() > 1)
 		{
-			std::lock_guard<std::mutex> lock(renderMutex);
-			renderer.DrawString(
-				0,
-				threadId,
-				std::format("Thread {:2}: {:9} / {:9} {:3.2f}%", threadId, range.length, range.length, 100.0),
-				ConsoleForegroundColor::IntenseGreen);
-			renderer.Present();
+			Map right = maps.back();
+			maps.pop_back();
+
+			Map left = maps.back();
+			maps.pop_back();
+
+			Map merged;
+			std::stack<MapEntry> entriesToProcess(left.entries.rbegin(), left.entries.rend());
+			while (!entriesToProcess.empty())
+			{
+				const MapEntry& entry = entriesToProcess.top();
+				entriesToProcess.pop();
+
+				// Find first entry in the right map whose source range intersects with the current entry's destination range
+				int iIntersection = 0;
+				while (entry.destination < right.entries[iIntersection].source
+				       || right.entries[iIntersection].source + right.entries[iIntersection].length <= entry.destination)
+				{
+					++iIntersection;
+				}
+
+				const MapEntry& intersection = right.entries[iIntersection];
+				int64_t offset = entry.destination - intersection.source;
+
+				// If the entry is fully contained within the intersecting range...
+				if (entry.destination + entry.length <= intersection.source + intersection.length)
+				{
+					// ... then remap to the new destination
+					merged.entries.emplace_back(intersection.destination + offset, entry.source, entry.length);
+					continue;
+				}
+
+				// If the entry spills over the intersecting range, split for the intersection...
+				int64_t choppedLength = intersection.length - offset;
+				merged.entries.emplace_back(intersection.destination + offset, entry.source, choppedLength);
+
+				// ... and process the remaining section later
+				entriesToProcess.emplace(entry.destination + choppedLength, entry.source + choppedLength, entry.length - choppedLength);
+			}
+
+			maps.push_back(merged);
+		}
+
+		return maps[0];
+	}
+
+	int64_t FindMinLocation(const SeedRange& range, const Map& map)
+	{
+		// Find the best location for each entry
+		int64_t minLocation = std::numeric_limits<int64_t>::max();
+		for (const MapEntry& entry : map.entries)
+		{
+			int64_t entryStart = entry.source;
+			int64_t entryEnd = entry.source + entry.length;
+			int64_t rangeStart = range.start;
+			int64_t rangeEnd = range.start + range.length;
+
+			// First overlapping position is the lowest final location
+			int64_t firstOverlappingSeed = -1;
+			if (entryStart <= rangeStart && rangeStart < entryEnd)
+			{
+				firstOverlappingSeed = rangeStart;
+			}
+			else if (rangeStart <= entryStart && entryStart < rangeEnd)
+			{
+				firstOverlappingSeed = entryStart;
+			}
+			else
+			{
+				continue;
+			}
+
+			// Update minimum location if the current entry has a better location
+			int64_t minLocationForEntry = entry.destination + (firstOverlappingSeed - entryStart);
+			minLocation = std::min(minLocation, minLocationForEntry);
 		}
 
 		return minLocation;
 	}
 
-	void PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)
+	void PrintSolution(const std::filesystem::path& inputFile, bool /*shouldRender*/)
 	{
 		auto [seedRanges, maps] = ReadInput(inputFile);
+		Map mergedMap = MergeMaps(maps);
 
-		if (shouldRender)
+		int64_t minLocation = std::numeric_limits<int64_t>::max();
+		for (const SeedRange& range : seedRanges)
 		{
-			std::cout << "Total seeds to evaluate: ";
-			ScopedConsoleTextColor textColor(ConsoleForegroundColor::IntenseYellow);
-			std::cout << ranges::accumulate(seedRanges, 0ull, [](int64_t acc, const SeedRange& range) { return acc + range.length; })
-					  << '\n';
+			minLocation = std::min(minLocation, FindMinLocation(range, mergedMap));
 		}
 
-		// Divide the largest range in half until we have a range for each CPU core
-		int numThreads = std::thread::hardware_concurrency();
-		while (seedRanges.size() < numThreads)
-		{
-			std::ranges::sort(seedRanges, {}, &SeedRange::length);
-
-			SeedRange range = seedRanges.back();
-			seedRanges.pop_back();
-
-			int64_t halfLength = range.length / 2;
-			seedRanges.emplace_back(range.start, halfLength);
-			seedRanges.emplace_back(range.start + halfLength, range.length - halfLength);
-		}
-
-		// Set up the renderer
-		std::mutex renderMutex;
-		ConsoleRenderer renderer{ 100, numThreads, 1 };
-
-		// Run each range in its own thread
-		std::vector<std::thread> threads;
-		std::vector<int64_t> results(seedRanges.size(), std::numeric_limits<int64_t>::max());
-		for (int i = 0; i < seedRanges.size(); ++i)
-		{
-			const SeedRange& range = seedRanges[i];
-			threads.emplace_back([&results, range, &maps, i, &renderMutex, &renderer, shouldRender]()
-			                     { results[i] = FindMinLocation(range, maps, i, renderMutex, renderer, shouldRender); });
-		}
-		std::for_each(threads.begin(), threads.end(), [](std::thread& thread) { thread.join(); });
-
-		// Find the smallest location from the results
-		std::cout << std::ranges::min(results);
+		std::cout << minLocation;
 	}
 } // namespace Puzzle05B

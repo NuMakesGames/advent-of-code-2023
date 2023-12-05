@@ -57,7 +57,7 @@ namespace Puzzle05A
 		return std::make_pair(seeds, maps);
 	}
 
-	void PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)
+	void PrintSolution(const std::filesystem::path& inputFile, bool /*shouldRender*/)
 	{
 		auto [seeds, maps] = ReadInput(inputFile);
 		int64_t minLocation = std::numeric_limits<int64_t>::max();
