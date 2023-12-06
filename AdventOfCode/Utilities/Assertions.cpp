@@ -1,20 +1,44 @@
 #include "pch.h"
 
 #include "Assertions.h"
+#include "Console.h"
 
 namespace Utilities
 {
-	void VerifyElseCrash(bool bAssert)
+	void VerifyElseCrashImpl(bool bAssert, const char* condition, std::source_location loc)
 	{
 		assert(bAssert);
 		if (!bAssert)
 		{
+			{
+				ScopedConsoleTextColor textColor(ConsoleForegroundColor::IntenseRed);
+				std::cout << "\nAssertion failed ";
+
+				SetConsoleTextColor(ConsoleForegroundColor::White);
+				std::cout << "at ";
+
+				SetConsoleTextColor(ConsoleForegroundColor::IntenseYellow);
+				std::cout << loc.file_name();
+
+				SetConsoleTextColor(ConsoleForegroundColor::White);
+				std::cout << "(";
+
+				SetConsoleTextColor(ConsoleForegroundColor::IntenseMagenta);
+				std::cout << loc.line();
+
+				SetConsoleTextColor(ConsoleForegroundColor::White);
+				std::cout << "): ";
+					
+				SetConsoleTextColor(ConsoleForegroundColor::IntenseRed);
+				std::cout << condition << '\n';
+			}
+
 			std::terminate();
 		}
 	}
 
-	void VerifyNotReached()
+	void VerifyNotReached(std::source_location loc)
 	{
-		VerifyElseCrash(false);
+		VerifyElseCrashImpl(false, "false", loc);
 	}
 } // namespace Utilities

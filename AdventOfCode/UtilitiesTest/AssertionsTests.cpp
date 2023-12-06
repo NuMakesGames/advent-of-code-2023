@@ -3,12 +3,12 @@
 
 TEST(AssertionsDeathTest, VerifyElseCrashFailureKillsProcess)
 {
-	ASSERT_DEATH(Utilities::VerifyElseCrash(false), "");
+	ASSERT_DEATH(VerifyElseCrash(false), "");
 }
 
 TEST(AssertionsDeathTest, VerifyElseCrashSuccessDoesNotKillProcess)
 {
-	Utilities::VerifyElseCrash(true);
+	VerifyElseCrash(true);
 }
 
 TEST(AssertionsDeathTest, VerifyNotReachedKillsProcess)

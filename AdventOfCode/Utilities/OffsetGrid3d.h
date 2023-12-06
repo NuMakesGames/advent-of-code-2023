@@ -130,7 +130,7 @@ namespace Utilities
 		// Swaps the underlying buffer
 		void swap(OffsetGrid3d<T>& that)
 		{
-			Utilities::VerifyElseCrash(m_offsetX == that.OffsetX() && m_offsetY == that.OffsetY() && m_offsetZ == that.OffsetZ());
+			VerifyElseCrash(m_offsetX == that.OffsetX() && m_offsetY == that.OffsetY() && m_offsetZ == that.OffsetZ());
 			Grid3d<T>::swap(that);
 		}
 

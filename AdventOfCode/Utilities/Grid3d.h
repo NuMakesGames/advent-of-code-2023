@@ -57,7 +57,7 @@ namespace Utilities
 		// Converts an index for the underlying vector into (x, y, z) coordinates.
 		virtual Vector3d<int> GetCoordinatesFromIndex(int i) const
 		{
-			Utilities::VerifyElseCrash(i < m_data.size());
+			VerifyElseCrash(i < m_data.size());
 			auto z = i / (m_width * m_height);
 			i -= z * m_width * m_height;
 			auto y = i / m_width;
@@ -68,45 +68,45 @@ namespace Utilities
 		// Converts (x, y, z) coordinates into an index for the underlying vector.
 		virtual int GetIndexFromCoordinates(int x, int y, int z) const
 		{
-			Utilities::VerifyElseCrash(x < m_width);
-			Utilities::VerifyElseCrash(y < m_height);
-			Utilities::VerifyElseCrash(z < m_depth);
+			VerifyElseCrash(x < m_width);
+			VerifyElseCrash(y < m_height);
+			VerifyElseCrash(z < m_depth);
 			return (z * m_height + y) * m_width + x;
 		}
 
 		// Retrieves reference to the value stored at the provided coordinates.
 		virtual T& at(int x, int y, int z)
 		{
-			Utilities::VerifyElseCrash(x < m_width);
-			Utilities::VerifyElseCrash(y < m_height);
-			Utilities::VerifyElseCrash(z < m_depth);
+			VerifyElseCrash(x < m_width);
+			VerifyElseCrash(y < m_height);
+			VerifyElseCrash(z < m_depth);
 			return m_data.at((z * m_height + y) * m_width + x);
 		}
 
 		// Retrieves constant reference to the value stored at the provided coordinates.
 		virtual const T& at(int x, int y, int z) const
 		{
-			Utilities::VerifyElseCrash(x < m_width);
-			Utilities::VerifyElseCrash(y < m_height);
-			Utilities::VerifyElseCrash(z < m_depth);
+			VerifyElseCrash(x < m_width);
+			VerifyElseCrash(y < m_height);
+			VerifyElseCrash(z < m_depth);
 			return m_data.at((z * m_height + y) * m_width + x);
 		}
 
 		// Retrieves reference to the value stored at the provided vector.
 		virtual T& at(const Vector3d<int>& position)
 		{
-			Utilities::VerifyElseCrash(position.x < m_width);
-			Utilities::VerifyElseCrash(position.y < m_height);
-			Utilities::VerifyElseCrash(position.z < m_depth);
+			VerifyElseCrash(position.x < m_width);
+			VerifyElseCrash(position.y < m_height);
+			VerifyElseCrash(position.z < m_depth);
 			return m_data.at((position.z * m_height + position.y) * m_width + position.x);
 		}
 
 		// Retrieves constant reference to the value stored at the provided vector.
 		virtual const T& at(const Vector3d<int>& position) const
 		{
-			Utilities::VerifyElseCrash(position.x < m_width);
-			Utilities::VerifyElseCrash(position.y < m_height);
-			Utilities::VerifyElseCrash(position.z < m_depth);
+			VerifyElseCrash(position.x < m_width);
+			VerifyElseCrash(position.y < m_height);
+			VerifyElseCrash(position.z < m_depth);
 			return m_data.at((position.z * m_height + position.y) * m_width + position.x);
 		}
 
@@ -125,7 +125,7 @@ namespace Utilities
 		// Swaps the underlying buffer
 		void swap(Grid3d<T>& that)
 		{
-			Utilities::VerifyElseCrash(m_width == that.Width() && m_height == that.Height() && m_depth == that.Depth());
+			VerifyElseCrash(m_width == that.Width() && m_height == that.Height() && m_depth == that.Depth());
 			m_data.swap(that.m_data);
 		}
 

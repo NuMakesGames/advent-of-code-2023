@@ -71,47 +71,47 @@ namespace Utilities
 		// Converts an index for the underlying vector into (x, y) coordinates.
 		virtual Vector2d<int> GetCoordinatesFromIndex(int i) const
 		{
-			Utilities::VerifyElseCrash(i < m_data.size());
+			VerifyElseCrash(i < m_data.size());
 			return Vector2d<int>(i % m_width, i / m_width);
 		}
 
 		// Converts (x, y) coordinates into an index for the underlying vector.
 		virtual int GetIndexFromCoordinates(int x, int y) const
 		{
-			Utilities::VerifyElseCrash(x < m_width);
-			Utilities::VerifyElseCrash(y < m_height);
+			VerifyElseCrash(x < m_width);
+			VerifyElseCrash(y < m_height);
 			return y * m_width + x;
 		}
 
 		// Retrieves reference to the value stored at the provided coordinates.
 		virtual T& at(int x, int y)
 		{
-			Utilities::VerifyElseCrash(x < m_width);
-			Utilities::VerifyElseCrash(y < m_height);
+			VerifyElseCrash(x < m_width);
+			VerifyElseCrash(y < m_height);
 			return m_data.at(y * m_width + x);
 		}
 
 		// Retrieves constant reference to the value stored at the provided coordinates.
 		virtual const T& at(int x, int y) const
 		{
-			Utilities::VerifyElseCrash(x < m_width);
-			Utilities::VerifyElseCrash(y < m_height);
+			VerifyElseCrash(x < m_width);
+			VerifyElseCrash(y < m_height);
 			return m_data.at(y * m_width + x);
 		}
 
 		// Retrieves reference to the value stored at the provided vector.
 		virtual T& at(const Vector2d<int>& position)
 		{
-			Utilities::VerifyElseCrash(position.x < m_width);
-			Utilities::VerifyElseCrash(position.y < m_height);
+			VerifyElseCrash(position.x < m_width);
+			VerifyElseCrash(position.y < m_height);
 			return m_data.at(position.y * m_width + position.x);
 		}
 
 		// Retrieves constant reference to the value stored at the provided vector.
 		virtual const T& at(const Vector2d<int>& position) const
 		{
-			Utilities::VerifyElseCrash(position.x < m_width);
-			Utilities::VerifyElseCrash(position.y < m_height);
+			VerifyElseCrash(position.x < m_width);
+			VerifyElseCrash(position.y < m_height);
 			return m_data.at(position.y * m_width + position.x);
 		}
 
@@ -130,7 +130,7 @@ namespace Utilities
 		// Swaps the underlying buffer
 		void swap(Grid2d<T>& that)
 		{
-			Utilities::VerifyElseCrash(m_width == that.Width() && m_height == that.Height());
+			VerifyElseCrash(m_width == that.Width() && m_height == that.Height());
 			m_data.swap(that.m_data);
 		}
 
