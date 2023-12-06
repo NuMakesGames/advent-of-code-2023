@@ -39,16 +39,17 @@ namespace Puzzle06B
 	void PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)
 	{
 		auto [time, distanceRecord] = ReadInput(inputFile);
-		int64_t wins = 0;
-		for (int64_t heldMs = 1; heldMs <= time; ++heldMs)
-		{
-			int64_t velocity = heldMs;
-			int64_t distance = velocity * (time - heldMs);
-			if (distance > distanceRecord)
-			{
-				++wins;
-			}
-		}
+
+		// Solve quadratic equation to find smallest and largest winning hold times:
+		//     heldMs * (time - heldMs) > distanceRecord
+		//
+		float a = -1.0f;
+		float b = static_cast<float>(time);
+		float c = static_cast<float>(-(distanceRecord + 1)); // +1 to beat the distance record
+		float discriminant = std::sqrt(b * b - 4 * a * c);
+		float minX = (b - discriminant) / 2.0f;
+		float maxX = (b + discriminant) / 2.0f;
+		int64_t wins = static_cast<int>(std::floor(maxX)) - static_cast<int>(std::ceil(minX)) + 1;
 
 		std::cout << wins;
 	}

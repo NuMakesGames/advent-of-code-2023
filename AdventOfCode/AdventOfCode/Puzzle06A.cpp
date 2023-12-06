@@ -17,26 +17,25 @@ namespace Puzzle06A
 	{
 		auto [times, distanceRecords] = ReadInput(inputFile);
 
-		// Count wins for each race
-		std::vector<int> wins(times.size(), 0);
+		// Multiply number of wins for each race
+		int acc = 1;
 		for (int i = 0; i < times.size(); ++i)
 		{
 			int time = times[i];
 			int distanceRecord = distanceRecords[i];
 
-			// Test each valid charging time for a win
-			for (int heldMs = 1; heldMs <= time; ++heldMs)
-			{
-				int velocity = heldMs;
-				int distance = velocity * (time - heldMs);
-				if (distance > distanceRecord)
-				{
-					++wins[i];
-				}
-			}
+			// Solve quadratic equation to find smallest and largest winning hold times:
+			//     heldMs * (time - heldMs) > distanceRecord
+			//
+			float a = -1.0f;
+			float b = static_cast<float>(time);
+			float c = static_cast<float>(-(distanceRecord + 1)); // +1 to beat the distance record
+			float discriminant = std::sqrt(b * b - 4 * a * c);
+			float minX = (b - discriminant) / 2.0f;
+			float maxX = (b + discriminant) / 2.0f;
+			acc *= static_cast<int>(std::floor(maxX)) - static_cast<int>(std::ceil(minX)) + 1;
 		}
 
-		// Multiply win counts together
-		std::cout << ranges::accumulate(wins, 1, [](int acc, int val) { return acc * val; });
+		std::cout << acc;
 	}
 } // namespace Puzzle06A
