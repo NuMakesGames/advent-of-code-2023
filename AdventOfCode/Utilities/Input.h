@@ -31,6 +31,44 @@ namespace Utilities
 	// Parses space-separated 64-bit integers.
 	std::vector<int64_t> SplitSpaceSeparatedInt64s(std::string_view input);
 
+	// Parses ints; assumes all non-digit characters are delimiters.
+	std::vector<int> ExtractInt32s(std::string_view input);
+
+	// Parses ints; assumes all non-digit characters are delimiters.
+	std::vector<int64_t> ExtractInt64s(std::string_view input);
+
+	// Parses ints; assumes all non-digit characters are delimiters.
+	template<typename T>
+	std::vector<T> ExtractInts(std::string_view input)
+	{
+		std::vector<T> result;
+
+		bool parsingNumber = false;
+		T current = 0;
+		for (char c : input)
+		{
+			if (std::isdigit(c))
+			{
+				current *= 10;
+				current += c - '0';
+				parsingNumber = true;
+			}
+			else if (parsingNumber)
+			{
+				result.emplace_back(current);
+				current = 0;
+				parsingNumber = false;
+			}
+		}
+
+		if (parsingNumber)
+		{
+			result.emplace_back(current);
+		}
+
+		return result;
+	}
+
 	// Parses the input string into tokens separated by the provided delimiter and applies the supplied
 	// transform to each token.
 	template<typename T>

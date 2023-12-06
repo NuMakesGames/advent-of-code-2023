@@ -277,3 +277,29 @@ TEST(SplitSpaceSeparatedInt64sTests, HandlesInt64MinAndInt64Max)
 	EXPECT_EQ(result[0], INT64_MIN);
 	EXPECT_EQ(result[1], INT64_MAX);
 }
+
+TEST(ExtractInt32sTests, ExtractInt32sSample)
+{
+	auto result = Utilities::ExtractInt32s("Time:      7  15   30");
+	ASSERT_EQ(result.size(), 3);
+	EXPECT_EQ(result[0], 7);
+	EXPECT_EQ(result[1], 15);
+	EXPECT_EQ(result[2], 30);
+
+	result = Utilities::ExtractInt32s("Distance:  9  40  200");
+	ASSERT_EQ(result.size(), 3);
+	EXPECT_EQ(result[0], 9);
+	EXPECT_EQ(result[1], 40);
+	EXPECT_EQ(result[2], 200);
+}
+
+TEST(ExtractInt64sTests, ExtractInt64sSample)
+{
+	auto result = Utilities::ExtractInt32s("Time:        49877895");
+	ASSERT_EQ(result.size(), 1);
+	EXPECT_EQ(result[0], 49877895);
+
+	result = Utilities::ExtractInt32s("Distance:   356137815021882");
+	ASSERT_EQ(result.size(), 1);
+	EXPECT_EQ(result[0], 356137815021882);
+}

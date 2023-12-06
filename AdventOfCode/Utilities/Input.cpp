@@ -108,4 +108,14 @@ namespace Utilities
 		return Utilities::SplitStringAndTransform<int64_t>(
 			input, " ", [](std::string_view token) { return std::stoll(std::string{ token }); });
 	}
+
+	std::vector<int> ExtractInt32s(std::string_view input)
+	{
+		return ExtractInts<int32_t>(input);
+	}
+
+	std::vector<int64_t> ExtractInt64s(std::string_view input)
+	{
+		return ExtractInts<int64_t>(input);
+	}
 } // namespace Utilities
