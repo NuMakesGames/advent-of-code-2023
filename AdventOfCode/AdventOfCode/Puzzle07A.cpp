@@ -22,20 +22,8 @@ namespace Puzzle07A
 	{
 		std::string cards;
 		int bid = 0;
+		Type type = Type::HighCard;
 	};
-
-	std::vector<Hand> ReadInput(const std::filesystem::path& inputFile)
-	{
-		// Read hands and bids
-		std::vector<Hand> hands;
-		for (const std::string& line : ReadAllLinesInFile(inputFile))
-		{
-			std::vector<std::string> split = SplitString(line, " ");
-			hands.emplace_back(split[0], std::stoi(split[1]));
-		}
-
-		return hands;
-	}
 
 	Type GetHandType(const std::string& hand)
 	{
@@ -84,6 +72,19 @@ namespace Puzzle07A
 		}
 	}
 
+	std::vector<Hand> ReadInput(const std::filesystem::path& inputFile)
+	{
+		// Read hands and bids
+		std::vector<Hand> hands;
+		for (const std::string& line : ReadAllLinesInFile(inputFile))
+		{
+			std::vector<std::string> split = SplitString(line, " ");
+			hands.emplace_back(split[0], std::stoi(split[1]), GetHandType(split[0]));
+		}
+
+		return hands;
+	}
+
 	void PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)
 	{
 		std::vector<Hand> input = ReadInput(inputFile);
@@ -93,11 +94,8 @@ namespace Puzzle07A
 			input,
 			[](const Hand& lhs, const Hand& rhs)
 			{
-				Type leftType = GetHandType(lhs.cards);
-				Type rightType = GetHandType(rhs.cards);
-
 				// If the types are the same, tie break on card strength by position
-				if (leftType == rightType)
+				if (lhs.type == rhs.type)
 				{
 					static const std::vector<char> strengths = { '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A' };
 					for (int i = 0; i < lhs.cards.size(); ++i)
@@ -116,7 +114,7 @@ namespace Puzzle07A
 				}
 
 				// If types are different, return the hand with the higher type
-				return leftType < rightType;
+				return lhs.type < rhs.type;
 			});
 
 		// Calculate winnings by multiplying bid by rank
