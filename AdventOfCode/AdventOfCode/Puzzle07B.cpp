@@ -28,9 +28,9 @@ namespace Puzzle07B
 	{
 		// Read hands and bids
 		std::vector<Hand> hands;
-		for (const auto& line : ReadAllLinesInFile(inputFile))
+		for (const std::string& line : ReadAllLinesInFile(inputFile))
 		{
-			auto split = SplitString(line, " ");
+			std::vector<std::string> split = SplitString(line, " ");
 			hands.emplace_back(split[0], std::stoi(split[1]));
 		}
 
@@ -41,7 +41,7 @@ namespace Puzzle07B
 	{
 		// Count the number of each card
 		std::unordered_map<char, int> cardCounts;
-		for (const auto& card : hand)
+		for (char card : hand)
 		{
 			cardCounts[card]++;
 		}
@@ -147,12 +147,12 @@ namespace Puzzle07B
 
 	void PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)
 	{
-		auto input = ReadInput(inputFile);
+		std::vector<Hand> input = ReadInput(inputFile);
 
 		// Sort hands by increasing rank
 		std::ranges::sort(
 			input,
-			[](const auto& lhs, const auto& rhs)
+			[](const Hand& lhs, const Hand& rhs)
 			{
 				Type leftType = GetHandType(lhs.cards);
 				Type rightType = GetHandType(rhs.cards);
