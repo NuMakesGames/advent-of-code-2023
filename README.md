@@ -9,3 +9,4 @@ Each solution has a corresponding solution overview video on YouTube:
 - [Day 5](https://youtu.be/1fhA6C5Swok) (8 minutes)
 - [Day 6](https://youtu.be/Iy8Ey_qbcJo) (5 minutes)
 - [Day 7](https://youtu.be/t9hCuHhQ_Es) (7 minutes)
+- [Day 8](https://youtu.be/2EJhqjSxhps) (7 minutes)
