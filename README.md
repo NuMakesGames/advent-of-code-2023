@@ -2,11 +2,11 @@
 C++20 solutions for [Advent of Code 2023](https://adventofcode.com/2023).
 
 Each solution has a corresponding solution overview video on YouTube:
-- [Day 1](https://youtu.be/_igWZykCuZQ) (3 minutes)
-- [Day 2](https://youtu.be/9GiVCwo0t74) (4 minutes)
-- [Day 3](https://youtu.be/qGpD72JYHi0) (7 minutes)
-- [Day 4](https://youtu.be/RaVmdN2DBg4) (5 minutes)
-- [Day 5](https://youtu.be/1fhA6C5Swok) (8 minutes)
-- [Day 6](https://youtu.be/Iy8Ey_qbcJo) (5 minutes)
-- [Day 7](https://youtu.be/t9hCuHhQ_Es) (7 minutes)
-- [Day 8](https://youtu.be/2EJhqjSxhps) (7 minutes)
+- [Day 1](https://www.youtube.com/watch?v=_igWZykCuZQ&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=2) (3 minutes)
+- [Day 2](https://www.youtube.com/watch?v=9GiVCwo0t74&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=3) (4 minutes)
+- [Day 3](https://www.youtube.com/watch?v=qGpD72JYHi0&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=4) (7 minutes)
+- [Day 4](https://www.youtube.com/watch?v=RaVmdN2DBg4&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=5) (5 minutes)
+- [Day 5](https://www.youtube.com/watch?v=1fhA6C5Swok&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=6) (8 minutes)
+- [Day 6](https://www.youtube.com/watch?v=Iy8Ey_qbcJo&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=8) (5 minutes)
+- [Day 7](https://www.youtube.com/watch?v=t9hCuHhQ_Es&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=9) (7 minutes)
+- [Day 8](https://www.youtube.com/watch?v=2EJhqjSxhps&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=9) (7 minutes)
