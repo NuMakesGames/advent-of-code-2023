@@ -8,11 +8,12 @@
 
 using namespace Utilities;
 
-const std::unordered_set<std::string> validArgs = { "--sample",   "--render",   "--partA",    "--partB",    "--puzzle01", "--puzzle02",
-	                                                "--puzzle03", "--puzzle04", "--puzzle05", "--puzzle06", "--puzzle07", "--puzzle08",
-	                                                "--puzzle09", "--puzzle10", "--puzzle11", "--puzzle12", "--puzzle13", "--puzzle14",
-	                                                "--puzzle15", "--puzzle16", "--puzzle17", "--puzzle18", "--puzzle19", "--puzzle20",
-	                                                "--puzzle21", "--puzzle22", "--puzzle23", "--puzzle24", "--puzzle25" };
+const std::unordered_set<std::string> validArgs = {
+	"--sampleInput", "--fullInput", "--render",   "--partA",    "--partB",    "--puzzle01", "--puzzle02", "--puzzle03",
+	"--puzzle04",    "--puzzle05",  "--puzzle06", "--puzzle07", "--puzzle08", "--puzzle09", "--puzzle10", "--puzzle11",
+	"--puzzle12",    "--puzzle13",  "--puzzle14", "--puzzle15", "--puzzle16", "--puzzle17", "--puzzle18", "--puzzle19",
+	"--puzzle20",    "--puzzle21",  "--puzzle22", "--puzzle23", "--puzzle24", "--puzzle25"
+};
 
 const std::vector<std::function<void(const std::filesystem::path&, bool)>> partASolvers = {
 	Puzzle01A::PrintSolution, Puzzle02A::PrintSolution, Puzzle03A::PrintSolution, Puzzle04A::PrintSolution, Puzzle05A::PrintSolution,
@@ -67,6 +68,7 @@ const std::vector<std::vector<std::filesystem::path>> puzzleSamplePaths = { { "P
 struct Args
 {
 	bool useSampleInput = false;
+	bool useFullInput = false;
 	bool shouldRender = false;
 	bool runPartA = false;
 	bool runPartB = false;
@@ -99,9 +101,13 @@ Args ReadArgs(int argc, char* argv[])
 			{
 				SetConsoleTextColor(ConsoleForegroundColor::IntenseGreen);
 
-				if (arg == "--sample")
+				if (arg == "--sampleInput")
 				{
 					result.useSampleInput = true;
+				}
+				else if (arg == "--fullInput")
+				{
+					result.useFullInput = true;
 				}
 				else if (arg == "--render")
 				{
@@ -134,6 +140,13 @@ Args ReadArgs(int argc, char* argv[])
 		result.runPartA = true;
 		result.runPartB = true;
 	}
+
+	if (!result.useSampleInput && !result.useFullInput)
+	{
+		result.useSampleInput = true;
+		result.useFullInput = true;
+	}
+
 	std::ranges::sort(result.puzzlesToRun);
 	return result;
 }
@@ -159,16 +172,26 @@ int main(int argc, char* argv[])
 		SetConsoleTextColor(ConsoleForegroundColor::IntenseWhite);
 		std::cout << "  AdventOfCode.exe ";
 		SetConsoleTextColor(ConsoleForegroundColor::IntenseGreen);
-		std::cout << "--partB --puzzle02\n";
+		std::cout << "--partB --fullInput --puzzle02\n";
 
 		SetConsoleTextColor(ConsoleForegroundColor::IntenseWhite);
 		std::cout << "  AdventOfCode.exe ";
 		SetConsoleTextColor(ConsoleForegroundColor::IntenseGreen);
-		std::cout << "--partA --sample --puzzle03\n";
+		std::cout << "--partA --sampleInput --puzzle03\n";
 	}
 
 	for (int puzzleId : args.puzzlesToRun)
 	{
+		std::vector<std::filesystem::path> inputPaths;
+		if (args.useSampleInput)
+		{
+			inputPaths.append_range(puzzleSamplePaths[puzzleId - 1]);
+		}
+		if (args.useFullInput)
+		{
+			inputPaths.append_range(puzzleInputPaths[puzzleId - 1]);
+		}
+
 		for (auto i = 0; i < 2; ++i)
 		{
 			if (i == 0 && !args.runPartA)
@@ -195,9 +218,6 @@ int main(int argc, char* argv[])
 			}
 
 			const auto solver = i == 0 ? partASolvers[puzzleId - 1] : partBSolvers[puzzleId - 1];
-			const std::vector<std::filesystem::path>& inputPaths =
-				args.useSampleInput ? puzzleSamplePaths[puzzleId - 1] : puzzleInputPaths[puzzleId - 1];
-
 			for (const auto& inputPath : inputPaths)
 			{
 				{

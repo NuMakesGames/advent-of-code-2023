@@ -4,7 +4,11 @@
   "Items": [
     {
       "Id": "fba1409a-4c6e-40f7-b999-54175d795591",
-      "Command": "--sample"
+      "Command": "--sampleInput"
+    },
+    {
+      "Id": "837e84d3-e3ea-4127-800b-da2053c620e7",
+      "Command": "--fullInput"
     },
     {
       "Id": "ee8ade4a-c4da-4810-84e7-b272833f2ef5",
