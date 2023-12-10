@@ -39,107 +39,108 @@ const std::vector<std::vector<std::filesystem::path>> puzzleInputPaths = {
 	{ "Puzzle21.input" }, { "Puzzle22.input" }, { "Puzzle23.input" }, { "Puzzle24.input" }, { "Puzzle25.input" },
 };
 
-const std::vector
-	<std::vector<std::vector<std::filesystem::path>>> puzzleSamplePaths = { {
-																				{ "Puzzle01SampleA.input", "Puzzle01SampleB.input" },
-																				{ "Puzzle01SampleA.input", "Puzzle01SampleB.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle02SampleA.input" },
-																				{ "Puzzle02SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle03SampleA.input" },
-																				{ "Puzzle03SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle04SampleA.input" },
-																				{ "Puzzle04SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle05SampleA.input" },
-																				{ "Puzzle05SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle06SampleA.input" },
-																				{ "Puzzle06SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle07SampleA.input" },
-																				{ "Puzzle07SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle08SampleA.input", "Puzzle08SampleB.input" },
-																				{ "Puzzle08SampleC.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle09SampleA.input" },
-																				{ "Puzzle09SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle10SampleA.input" },
-																				{ "Puzzle10SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle11SampleA.input" },
-																				{ "Puzzle11SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle12SampleA.input" },
-																				{ "Puzzle12SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle13SampleA.input" },
-																				{ "Puzzle13SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle14SampleA.input" },
-																				{ "Puzzle14SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle15SampleA.input" },
-																				{ "Puzzle15SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle16SampleA.input" },
-																				{ "Puzzle16SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle17SampleA.input" },
-																				{ "Puzzle17SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle18SampleA.input" },
-																				{ "Puzzle18SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle19SampleA.input" },
-																				{ "Puzzle19SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle20SampleA.input" },
-																				{ "Puzzle20SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle21SampleA.input" },
-																				{ "Puzzle21SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle22SampleA.input" },
-																				{ "Puzzle22SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle23SampleA.input" },
-																				{ "Puzzle23SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle24SampleA.input" },
-																				{ "Puzzle24SampleA.input" },
-																			},
-	                                                                        {
-																				{ "Puzzle25SampleA.input" },
-																				{ "Puzzle25SampleA.input" },
-																			} };
+const std::vector<std::vector<std::vector<std::filesystem::path>>> puzzleSamplePaths = {
+	{
+		{ "Puzzle01SampleA.input", "Puzzle01SampleB.input" },
+		{ "Puzzle01SampleA.input", "Puzzle01SampleB.input" },
+	},
+	{
+		{ "Puzzle02SampleA.input" },
+		{ "Puzzle02SampleA.input" },
+	},
+	{
+		{ "Puzzle03SampleA.input" },
+		{ "Puzzle03SampleA.input" },
+	},
+	{
+		{ "Puzzle04SampleA.input" },
+		{ "Puzzle04SampleA.input" },
+	},
+	{
+		{ "Puzzle05SampleA.input" },
+		{ "Puzzle05SampleA.input" },
+	},
+	{
+		{ "Puzzle06SampleA.input" },
+		{ "Puzzle06SampleA.input" },
+	},
+	{
+		{ "Puzzle07SampleA.input" },
+		{ "Puzzle07SampleA.input" },
+	},
+	{
+		{ "Puzzle08SampleA.input", "Puzzle08SampleB.input" },
+		{ "Puzzle08SampleC.input" },
+	},
+	{
+		{ "Puzzle09SampleA.input" },
+		{ "Puzzle09SampleA.input" },
+	},
+	{
+		{ "Puzzle10SampleA.input", "Puzzle10SampleB.input" },
+		{ "Puzzle10SampleC.input", "Puzzle10SampleD.input", "Puzzle10SampleE.input" },
+	},
+	{
+		{ "Puzzle11SampleA.input" },
+		{ "Puzzle11SampleA.input" },
+	},
+	{
+		{ "Puzzle12SampleA.input" },
+		{ "Puzzle12SampleA.input" },
+	},
+	{
+		{ "Puzzle13SampleA.input" },
+		{ "Puzzle13SampleA.input" },
+	},
+	{
+		{ "Puzzle14SampleA.input" },
+		{ "Puzzle14SampleA.input" },
+	},
+	{
+		{ "Puzzle15SampleA.input" },
+		{ "Puzzle15SampleA.input" },
+	},
+	{
+		{ "Puzzle16SampleA.input" },
+		{ "Puzzle16SampleA.input" },
+	},
+	{
+		{ "Puzzle17SampleA.input" },
+		{ "Puzzle17SampleA.input" },
+	},
+	{
+		{ "Puzzle18SampleA.input" },
+		{ "Puzzle18SampleA.input" },
+	},
+	{
+		{ "Puzzle19SampleA.input" },
+		{ "Puzzle19SampleA.input" },
+	},
+	{
+		{ "Puzzle20SampleA.input" },
+		{ "Puzzle20SampleA.input" },
+	},
+	{
+		{ "Puzzle21SampleA.input" },
+		{ "Puzzle21SampleA.input" },
+	},
+	{
+		{ "Puzzle22SampleA.input" },
+		{ "Puzzle22SampleA.input" },
+	},
+	{
+		{ "Puzzle23SampleA.input" },
+		{ "Puzzle23SampleA.input" },
+	},
+	{
+		{ "Puzzle24SampleA.input" },
+		{ "Puzzle24SampleA.input" },
+	},
+	{
+		{ "Puzzle25SampleA.input" },
+		{ "Puzzle25SampleA.input" },
+	}
+};
 
 struct Args
 {
@@ -283,7 +284,7 @@ int main(int argc, char* argv[])
 				std::cout << ":\n";
 			}
 
-		std::vector<std::filesystem::path> inputPaths;
+			std::vector<std::filesystem::path> inputPaths;
 			if (args.useSampleInput)
 			{
 				inputPaths.append_range(puzzleSamplePaths[puzzleId - 1][i]);

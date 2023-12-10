@@ -11,3 +11,4 @@ Each solution has a corresponding solution overview video on YouTube:
 - [Day 7](https://www.youtube.com/watch?v=t9hCuHhQ_Es&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=9) (7 minutes)
 - [Day 8](https://www.youtube.com/watch?v=2EJhqjSxhps&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=9) (7 minutes)
 - [Day 9](https://www.youtube.com/watch?v=LTzc4b2oMr8&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=10) (6 minutes)
+- [Day 10](https://www.youtube.com/watch?v=R9paQXFvTQw&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=11) (15 minutes)

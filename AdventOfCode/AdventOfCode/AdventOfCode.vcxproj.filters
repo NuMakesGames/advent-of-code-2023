@@ -355,5 +355,17 @@
     <CopyFileToFolders Include="Puzzle08SampleB.input">
       <Filter>Puzzle Samples</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle10SampleB.input">
+      <Filter>Puzzle Samples</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle10SampleC.input">
+      <Filter>Puzzle Samples</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle10SampleD.input">
+      <Filter>Puzzle Samples</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Puzzle10SampleE.input">
+      <Filter>Puzzle Samples</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

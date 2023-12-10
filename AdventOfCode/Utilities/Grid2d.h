@@ -83,6 +83,18 @@ namespace Utilities
 			return y * m_width + x;
 		}
 
+		// Checks if the provided coordinates are within the bounds of the grid.
+		bool IsInBounds(int x, int y) const
+		{
+			return x >= 0 && x < m_width && y >= 0 && y < m_height;
+		}
+
+		// Checks if the provided vector is within the bounds of the grid.
+		bool IsInBounds(const Vector2d<int>& position) const
+		{
+			return IsInBounds(position.x, position.y);
+		}
+
 		// Retrieves reference to the value stored at the provided coordinates.
 		virtual T& at(int x, int y)
 		{
@@ -227,7 +239,6 @@ namespace Utilities
 	};
 } // namespace Utilities
 
-
 namespace std
 {
 	template<>
@@ -236,7 +247,7 @@ namespace std
 		size_t operator()(const Utilities::Grid2d<char>& value) const
 		{
 			auto result = 0ull;
-			Utilities::HashCombine(result, value.Width(), value.Height(), std::string_view{value.begin(), value.end()});
+			Utilities::HashCombine(result, value.Width(), value.Height(), std::string_view{ value.begin(), value.end() });
 			return result;
 		}
 	};
