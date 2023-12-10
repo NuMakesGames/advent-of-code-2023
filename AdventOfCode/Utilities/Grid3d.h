@@ -74,6 +74,18 @@ namespace Utilities
 			return (z * m_height + y) * m_width + x;
 		}
 
+		// Checks if the provided coordinates are within the bounds of the grid.
+		virtual bool IsInBounds(int x, int y, int z) const
+		{
+			return x >= 0 && x < m_width && y >= 0 && y < m_height && z >= 0 && z < m_depth;
+		}
+
+		// Checks if the provided vector is within the bounds of the grid.
+		virtual bool IsInBounds(const Vector3d<int>& position) const
+		{
+			return IsInBounds(position.x, position.y, position.z);
+		}
+
 		// Retrieves reference to the value stored at the provided coordinates.
 		virtual T& at(int x, int y, int z)
 		{

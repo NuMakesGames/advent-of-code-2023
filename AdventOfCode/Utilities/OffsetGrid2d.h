@@ -80,6 +80,18 @@ namespace Utilities
 			return Grid2d<T>::GetIndexFromCoordinates(x + m_offsetX, y + m_offsetY);
 		}
 
+		// Checks if the provided coordinates are within the bounds of the grid.
+		virtual bool IsInBounds(int x, int y) const override
+		{
+			return Grid2d<T>::IsInBounds(x + m_offsetX, y + m_offsetY);
+		}
+
+		// Checks if the provided vector is within the bounds of the grid.
+		virtual bool IsInBounds(const Vector2d<int>& position) const override
+		{
+			return IsInBounds(position.x, position.y);
+		}
+
 		// Retrieves reference to the value stored at the provided coordinates.
 		virtual T& at(int x, int y) override
 		{

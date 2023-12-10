@@ -206,6 +206,31 @@ TEST(OffsetGrid2dTests, IndexToCoordinatesConversions)
 	}
 }
 
+TEST(OffsetGrid2dTests, IsInBounds)
+{
+	auto grid = Utilities::OffsetGrid2d<int>{ 2, 3, 1, 2 };
+	ASSERT_EQ(grid.size(), 6);
+
+	for (auto y = -2; y < grid.Height() - 2; ++y)
+	{
+		for (auto x = -1; x < grid.Width() - 1; ++x)
+		{
+			EXPECT_TRUE(grid.IsInBounds(x, y));
+			EXPECT_TRUE(grid.IsInBounds(Utilities::Vector2d<int>{ x, y }));
+		}
+	}
+
+	EXPECT_FALSE(grid.IsInBounds(-2, 0));
+	EXPECT_FALSE(grid.IsInBounds(grid.Width() - 1, 0));
+	EXPECT_FALSE(grid.IsInBounds(0, -3));
+	EXPECT_FALSE(grid.IsInBounds(0, grid.Height() - 2));
+
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector2d<int>{ -2, 0 }));
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector2d<int>{ grid.Width() - 1, 0 }));
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector2d<int>{ 0, -3 }));
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector2d<int>{ 0, grid.Height() - 2}));
+}
+
 TEST(OffsetGrid2dTests, SwapUnderlyingBuffers)
 {
 	auto gridA = Utilities::OffsetGrid2d<int>{ 5, 10, 0, 0 };

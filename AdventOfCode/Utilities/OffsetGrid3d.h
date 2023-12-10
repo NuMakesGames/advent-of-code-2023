@@ -91,6 +91,18 @@ namespace Utilities
 			return Grid3d<T>::GetIndexFromCoordinates(x + m_offsetX, y + m_offsetY, z + m_offsetZ);
 		}
 
+		// Checks if the provided coordinates are within the bounds of the grid.
+		virtual bool IsInBounds(int x, int y, int z) const override
+		{
+			return Grid3d<T>::IsInBounds(x + m_offsetX, y + m_offsetY, z + m_offsetZ);
+		}
+
+		// Checks if the provided vector is within the bounds of the grid.
+		virtual bool IsInBounds(const Vector3d<int>& position) const override
+		{
+			return IsInBounds(position.x, position.y, position.z);
+		}
+
 		// Retrieves reference to the value stored at the provided coordinates.
 		virtual T& at(int x, int y, int z) override
 		{

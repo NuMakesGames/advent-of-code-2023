@@ -82,7 +82,7 @@ TEST(OffsetGrid3dTests, AtCanBeUsedToSetValues)
 TEST(OffsetGrid3dTests, ComparisonOperators)
 {
 	{
-		auto left = Utilities::OffsetGrid3d<int>{ 2, 3, 4, 1, 2, 3};
+		auto left = Utilities::OffsetGrid3d<int>{ 2, 3, 4, 1, 2, 3 };
 		auto right = Utilities::OffsetGrid3d<int>{ 2, 3, 4, 1, 2, 3 };
 		EXPECT_EQ(left, right);
 	}
@@ -175,6 +175,38 @@ TEST(OffsetGrid3dTests, IndexToCoordinatesConversions)
 		auto i = grid.GetIndexFromCoordinates(x, y, z);
 		EXPECT_EQ(i, 8);
 	}
+}
+
+TEST(OffsetGrid3dTests, IsInBounds)
+{
+	auto grid = Utilities::OffsetGrid3d<int>{ 2, 3, 4, 1, 2, 3 };
+	ASSERT_EQ(grid.size(), 24);
+
+	for (auto z = -3; z < grid.Depth() - 3; ++z)
+	{
+		for (auto y = -2; y < grid.Height() - 2; ++y)
+		{
+			for (auto x = -1; x < grid.Width() - 1; ++x)
+			{
+				EXPECT_TRUE(grid.IsInBounds(x, y, z));
+				EXPECT_TRUE(grid.IsInBounds(Utilities::Vector3d<int>{ x, y, z }));
+			}
+		}
+	}
+
+	EXPECT_FALSE(grid.IsInBounds(-2, 0, 0));
+	EXPECT_FALSE(grid.IsInBounds(grid.Width() - 1, 0, 0));
+	EXPECT_FALSE(grid.IsInBounds(0, -3, 0));
+	EXPECT_FALSE(grid.IsInBounds(0, grid.Height() - 2, 0));
+	EXPECT_FALSE(grid.IsInBounds(0, 0, -4));
+	EXPECT_FALSE(grid.IsInBounds(0, 0, grid.Depth() - 3));
+
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector3d<int>{ -2, 0, 0 }));
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector3d<int>{ grid.Width() - 1, 0, 0 }));
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector3d<int>{ 0, -3, 0 }));
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector3d<int>{ 0, grid.Height() - 2, 0 }));
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector3d<int>{ 0, 0, -4 }));
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector3d<int>{ 0, 0, grid.Depth() - 3 }));
 }
 
 TEST(OffsetGrid3dTests, SwapUnderlyingBuffers)

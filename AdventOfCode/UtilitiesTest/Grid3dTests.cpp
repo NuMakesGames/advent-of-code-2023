@@ -219,53 +219,85 @@ TEST(Grid3dTests, IndexToCoordinatesConversions)
 	}
 }
 
-TEST(Grid3dTests, SwapUnderlyingBuffers)
+TEST(Grid3dTests, IsInBounds)
 {
-	auto gridA = Utilities::Grid3d<int>{ 5, 10, 15 };
-	auto gridB = Utilities::Grid3d<int>{ 5, 10, 15 };
+	auto grid = Utilities::Grid3d<int>{ 2, 3, 4 };
+	ASSERT_EQ(grid.size(), 24);
 
-	std::ranges::fill(gridA, 1);
-	std::ranges::fill(gridB, 2);
-
-	gridA.swap(gridB);
-
-	for (auto value : gridA)
+	for (auto z = 0; z < grid.Depth(); ++z)
 	{
-		EXPECT_EQ(value, 2);
-	}
-
-	for (auto value : gridB)
-	{
-		EXPECT_EQ(value, 1);
-	}
-}
-
-TEST(Grid3dTests, ResizePreservesElements)
-{
-	auto grid = Utilities::Grid3d<int>{ 5, 5, 5 };
-	std::ranges::fill(grid, 1);
-
-	grid.resize(7, 10, 13);
-	EXPECT_EQ(grid.Width(), 7);
-	EXPECT_EQ(grid.Height(), 10);
-	EXPECT_EQ(grid.Depth(), 13);
-	for (int z = 0; z < grid.Depth(); ++z)
-	{
-		for (int y = 0; y < grid.Height(); ++y)
+		for (auto y = 0; y < grid.Height(); ++y)
 		{
-			for (int x = 0; x < grid.Width(); ++x)
+			for (auto x = 0; x < grid.Width(); ++x)
 			{
-				EXPECT_EQ(grid.at(x, y, z), x >= 5 || y >= 5 || z >= 5 ? 0 : 1);
+				EXPECT_TRUE(grid.IsInBounds(x, y, z));
+				EXPECT_TRUE(grid.IsInBounds(Utilities::Vector3d<int>{ x, y, z }));
 			}
 		}
 	}
 
-	grid.resize(2, 4, 5);
-	EXPECT_EQ(grid.Width(), 2);
-	EXPECT_EQ(grid.Height(), 4);
-	EXPECT_EQ(grid.Depth(), 5);
-	for (auto value : grid)
-	{
-		EXPECT_EQ(value, 1);
-	}
+	EXPECT_FALSE(grid.IsInBounds(-1, 0, 0));
+	EXPECT_FALSE(grid.IsInBounds(grid.Width(), 0, 0));
+	EXPECT_FALSE(grid.IsInBounds(0, -1, 0));
+	EXPECT_FALSE(grid.IsInBounds(0, grid.Height(), 0));
+	EXPECT_FALSE(grid.IsInBounds(0, 0, -1));
+	EXPECT_FALSE(grid.IsInBounds(0, 0, grid.Depth()));
+
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector3d<int>{ -1, 0, 0 }));
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector3d<int>{ grid.Width(), 0, 0 }));
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector3d<int>{ 0, -1, 0 }));
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector3d<int>{ 0, grid.Height(), 0 }));
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector3d<int>{ 0, 0, -1 }));
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector3d<int>{ 0, 0, grid.Depth() }));
+}
+
+TEST(Grid3dTests, SwapUnderlyingBuffers)
+{
+						auto gridA = Utilities::Grid3d<int>{ 5, 10, 15 };
+						auto gridB = Utilities::Grid3d<int>{ 5, 10, 15 };
+
+						std::ranges::fill(gridA, 1);
+						std::ranges::fill(gridB, 2);
+
+						gridA.swap(gridB);
+
+						for (auto value : gridA)
+						{
+							EXPECT_EQ(value, 2);
+						}
+
+						for (auto value : gridB)
+						{
+							EXPECT_EQ(value, 1);
+						}
+}
+
+TEST(Grid3dTests, ResizePreservesElements)
+{
+						auto grid = Utilities::Grid3d<int>{ 5, 5, 5 };
+						std::ranges::fill(grid, 1);
+
+						grid.resize(7, 10, 13);
+						EXPECT_EQ(grid.Width(), 7);
+						EXPECT_EQ(grid.Height(), 10);
+						EXPECT_EQ(grid.Depth(), 13);
+						for (int z = 0; z < grid.Depth(); ++z)
+						{
+							for (int y = 0; y < grid.Height(); ++y)
+							{
+								for (int x = 0; x < grid.Width(); ++x)
+								{
+									EXPECT_EQ(grid.at(x, y, z), x >= 5 || y >= 5 || z >= 5 ? 0 : 1);
+								}
+							}
+						}
+
+						grid.resize(2, 4, 5);
+						EXPECT_EQ(grid.Width(), 2);
+						EXPECT_EQ(grid.Height(), 4);
+						EXPECT_EQ(grid.Depth(), 5);
+						for (auto value : grid)
+						{
+							EXPECT_EQ(value, 1);
+						}
 }

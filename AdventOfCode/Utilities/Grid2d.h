@@ -84,13 +84,13 @@ namespace Utilities
 		}
 
 		// Checks if the provided coordinates are within the bounds of the grid.
-		bool IsInBounds(int x, int y) const
+		virtual bool IsInBounds(int x, int y) const
 		{
 			return x >= 0 && x < m_width && y >= 0 && y < m_height;
 		}
 
 		// Checks if the provided vector is within the bounds of the grid.
-		bool IsInBounds(const Vector2d<int>& position) const
+		virtual bool IsInBounds(const Vector2d<int>& position) const
 		{
 			return IsInBounds(position.x, position.y);
 		}

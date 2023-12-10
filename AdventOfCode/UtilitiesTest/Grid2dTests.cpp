@@ -1,9 +1,10 @@
 #include "pch.h"
+
 #include "../Utilities/Utilities.h"
 
 TEST(Grid2dTests, ConstructionInitializesToZero)
 {
-	auto grid = Utilities::Grid2d<int>{5, 10};
+	auto grid = Utilities::Grid2d<int>{ 5, 10 };
 	ASSERT_EQ(grid.Width(), 5);
 	ASSERT_EQ(grid.Height(), 10);
 
@@ -39,7 +40,7 @@ TEST(Grid2dTests, AtCanBeUsedToSetValues)
 	{
 		for (auto x = 0; x < grid.Width(); ++x)
 		{
-			grid.at(Utilities::Vector2d<int>{x, y}) = y * 10 + x;
+			grid.at(Utilities::Vector2d<int>{ x, y }) = y * 10 + x;
 		}
 	}
 
@@ -177,6 +178,31 @@ TEST(Grid2dTests, IndexToCoordinatesConversions)
 		auto i = grid.GetIndexFromCoordinates(x, y);
 		EXPECT_EQ(i, 5);
 	}
+}
+
+TEST(Grid2dTests, IsInBounds)
+{
+	auto grid = Utilities::Grid2d<int>{ 2, 3 };
+	ASSERT_EQ(grid.size(), 6);
+
+	for (auto y = 0; y < grid.Height(); ++y)
+	{
+		for (auto x = 0; x < grid.Width(); ++x)
+		{
+			EXPECT_TRUE(grid.IsInBounds(x, y));
+			EXPECT_TRUE(grid.IsInBounds(Utilities::Vector2d<int>{ x, y }));
+		}
+	}
+
+	EXPECT_FALSE(grid.IsInBounds(-1, 0));
+	EXPECT_FALSE(grid.IsInBounds(grid.Width(), 0));
+	EXPECT_FALSE(grid.IsInBounds(0, -1));
+	EXPECT_FALSE(grid.IsInBounds(0, grid.Height()));
+
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector2d<int>{ -1, 0 }));
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector2d<int>{ grid.Width(), 0 }));
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector2d<int>{ 0, -1 }));
+	EXPECT_FALSE(grid.IsInBounds(Utilities::Vector2d<int>{ 0, grid.Height() }));
 }
 
 TEST(Grid2dTests, SwapUnderlyingBuffers)
