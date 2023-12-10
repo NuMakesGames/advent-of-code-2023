@@ -295,11 +295,11 @@ TEST(ExtractInt32sTests, ExtractInt32sSample)
 
 TEST(ExtractInt64sTests, ExtractInt64sSample)
 {
-	auto result = Utilities::ExtractInt32s("Time:        49877895");
+	auto result = Utilities::ExtractInt64s("Time:        49877895");
 	ASSERT_EQ(result.size(), 1);
 	EXPECT_EQ(result[0], 49877895);
 
-	result = Utilities::ExtractInt32s("Distance:   356137815021882");
+	result = Utilities::ExtractInt64s("Distance:   356137815021882");
 	ASSERT_EQ(result.size(), 1);
 	EXPECT_EQ(result[0], 356137815021882);
 }
