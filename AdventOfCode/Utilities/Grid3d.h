@@ -7,13 +7,12 @@ namespace Utilities
 {
 	// Wraps a std::vector and for easier three-dimensional addressing.
 	// Grid dimensions cannot be changed after construction.
-	template <typename T>
+	template<typename T>
 	class Grid3d
 	{
 	public:
 		// Initializes grid to specified width and height. Default initializes.
-		Grid3d(int width, int height, int depth)
-			: m_width(width), m_height(height), m_depth(depth), m_data(m_width * m_height * m_depth)
+		Grid3d(int width, int height, int depth) : m_width(width), m_height(height), m_depth(depth), m_data(m_width * m_height * m_depth)
 		{
 		}
 
@@ -26,13 +25,22 @@ namespace Utilities
 		}
 
 		// Width of the grid.
-		int Width() const { return m_width; }
+		int Width() const
+		{
+			return m_width;
+		}
 
 		// Height of the grid.
-		int Height() const { return m_height; }
+		int Height() const
+		{
+			return m_height;
+		}
 
 		// Depth of the grid.
-		int Depth() const { return m_depth; }
+		int Depth() const
+		{
+			return m_depth;
+		}
 
 		// Resizes the grid and attempts to maintain existing elements.
 		void resize(int width, int height, int depth)
@@ -52,7 +60,10 @@ namespace Utilities
 		}
 
 		// Returns the size of the underlying vector.
-		size_t size() const { return m_data.size(); }
+		size_t size() const
+		{
+			return m_data.size();
+		}
 
 		// Converts an index for the underlying vector into (x, y, z) coordinates.
 		virtual Vector3d<int> GetCoordinatesFromIndex(int i) const
@@ -142,18 +153,54 @@ namespace Utilities
 		}
 
 		// Standard iterator overloads.
-		std::vector<T>::iterator begin() noexcept { return m_data.begin(); }
-		std::vector<T>::iterator end() noexcept { return m_data.end(); }
-		std::vector<T>::const_iterator begin() const noexcept { return m_data.begin(); }
-		std::vector<T>::const_iterator end() const noexcept { return m_data.end(); }
-		std::vector<T>::const_iterator cbegin() const noexcept { return m_data.cbegin(); }
-		std::vector<T>::const_iterator cend() const noexcept { return m_data.cend(); }
-		std::vector<T>::reverse_iterator rbegin() noexcept { return m_data.rbegin(); }
-		std::vector<T>::reverse_iterator rend() noexcept { return m_data.rend(); }
-		std::vector<T>::const_reverse_iterator rbegin() const noexcept { return m_data.rbegin(); }
-		std::vector<T>::const_reverse_iterator rend() const noexcept { return m_data.rend(); }
-		std::vector<T>::const_reverse_iterator crbegin() const noexcept { return m_data.crbegin(); }
-		std::vector<T>::const_reverse_iterator crend() const noexcept { return m_data.crend(); }
+		std::vector<T>::iterator begin() noexcept
+		{
+			return m_data.begin();
+		}
+		std::vector<T>::iterator end() noexcept
+		{
+			return m_data.end();
+		}
+		std::vector<T>::const_iterator begin() const noexcept
+		{
+			return m_data.begin();
+		}
+		std::vector<T>::const_iterator end() const noexcept
+		{
+			return m_data.end();
+		}
+		std::vector<T>::const_iterator cbegin() const noexcept
+		{
+			return m_data.cbegin();
+		}
+		std::vector<T>::const_iterator cend() const noexcept
+		{
+			return m_data.cend();
+		}
+		std::vector<T>::reverse_iterator rbegin() noexcept
+		{
+			return m_data.rbegin();
+		}
+		std::vector<T>::reverse_iterator rend() noexcept
+		{
+			return m_data.rend();
+		}
+		std::vector<T>::const_reverse_iterator rbegin() const noexcept
+		{
+			return m_data.rbegin();
+		}
+		std::vector<T>::const_reverse_iterator rend() const noexcept
+		{
+			return m_data.rend();
+		}
+		std::vector<T>::const_reverse_iterator crbegin() const noexcept
+		{
+			return m_data.crbegin();
+		}
+		std::vector<T>::const_reverse_iterator crend() const noexcept
+		{
+			return m_data.crend();
+		}
 
 		// Spaceship operator overload for comparison operators.
 		auto operator<=>(const Grid3d<T>&) const = default;
@@ -172,10 +219,6 @@ namespace Utilities
 				{
 					for (int x = 0; x < grid.Width(); ++x)
 					{
-						if (x > 0)
-						{
-							stream << ' ';
-						}
 						stream << grid.m_data.at((z * grid.m_height + y) * grid.m_width + x);
 					}
 
@@ -195,7 +238,7 @@ namespace Utilities
 		int m_depth = 0;
 		std::vector<T> m_data;
 	};
-}
+} // namespace Utilities
 
 namespace std
 {

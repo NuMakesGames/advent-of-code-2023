@@ -1,7 +1,7 @@
 # advent-of-code-2023
 C++20 solutions for [Advent of Code 2023](https://adventofcode.com/2023).
 
-Each solution has a corresponding solution overview video on YouTube:
+Most solutions have a corresponding solution overview video on YouTube:
 - [Day 1](https://www.youtube.com/watch?v=_igWZykCuZQ&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=2) (3 minutes)
 - [Day 2](https://www.youtube.com/watch?v=9GiVCwo0t74&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=3) (4 minutes)
 - [Day 3](https://www.youtube.com/watch?v=qGpD72JYHi0&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=4) (7 minutes)
@@ -13,3 +13,4 @@ Each solution has a corresponding solution overview video on YouTube:
 - [Day 9](https://www.youtube.com/watch?v=LTzc4b2oMr8&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=10) (6 minutes)
 - [Day 10](https://www.youtube.com/watch?v=R9paQXFvTQw&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=11) (15 minutes)
 - [Day 11](https://www.youtube.com/watch?v=NCR2y9wIr9Q&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=12) (5 minutes)
+- [Day 14](https://www.youtube.com/watch?v=lqqIZ_nYQxs&list=PLfp0cv3ot2ALf84VY4bDQMTUN0Fvhvfl7&index=13) (6 minutes)

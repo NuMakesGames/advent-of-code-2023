@@ -214,18 +214,9 @@ namespace Utilities
 					stream << '\n';
 				}
 
-				auto bFirstCell = true;
 				for (const auto& cell : row)
 				{
-					if (bFirstCell)
-					{
-						bFirstCell = false;
-						stream << cell;
-					}
-					else
-					{
-						stream << ' ' << cell;
-					}
+					stream << cell;
 				}
 			}
 
