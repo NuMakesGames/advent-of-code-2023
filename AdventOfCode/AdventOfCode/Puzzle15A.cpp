@@ -7,17 +7,26 @@ using namespace Utilities;
 
 namespace Puzzle15A
 {
-	auto ReadInput(const std::filesystem::path& inputFile)
+	std::vector<std::string> ReadInput(const std::filesystem::path& inputFile)
 	{
-		auto input = ReadAllLinesInFile(inputFile);
-
-		return input;
+		std::vector<std::string> input = ReadAllLinesInFile(inputFile);
+		return SplitString(input[0], ",");
 	}
 
 	void PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)
 	{
-		auto input = ReadInput(inputFile);
-
-		std::cout << "Puzzle15A not yet solved!";
+		int acc = 0;
+		for (const std::string& str : ReadInput(inputFile))
+		{
+			int value = 0;
+			for (char c : str)
+			{
+				value += static_cast<int>(c);
+				value *= 17;
+				value %= 256;
+			}
+			acc += value;
+		}
+		std::cout << acc;
 	}
 } // namespace Puzzle15A
