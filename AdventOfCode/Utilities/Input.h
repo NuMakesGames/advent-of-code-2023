@@ -10,6 +10,9 @@ namespace Utilities
 	// Reads the provided text file and returns a 2d grid of characters
 	Grid2d<char> ReadAllLinesInFileAsGrid(const std::filesystem::path& path);
 
+	// Reads the provided text file and returns a 2d grid of integers
+	Grid2d<int> ReadAllLinesInFileAsGridOfInts(const std::filesystem::path& path);
+
 	// Writes the provided lines to the specified text file, overwriting if it exists.
 	bool WriteAllLinesToFile(const std::filesystem::path& path, const std::vector<std::string>& lines);
 

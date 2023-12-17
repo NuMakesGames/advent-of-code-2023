@@ -61,5 +61,8 @@
     <CopyFileToFolders Include="ReadAllLinesInFileAsGridTests.input">
       <Filter>Input Files</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="ReadAllLinesInFileAsGridOfIntsTests.input">
+      <Filter>Input Files</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

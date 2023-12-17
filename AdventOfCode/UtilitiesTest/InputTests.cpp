@@ -39,6 +39,23 @@ TEST(ReadAllLinesInFileAsGridTests, HandlesBasicTextFile)
 	}
 }
 
+TEST(ReadAllLinesInFileAsGridOfIntsTests, HandlesBasicTextFile)
+{
+	auto lines = Utilities::ReadAllLinesInFile("ReadAllLinesInFileAsGridOfIntsTests.input");
+	auto grid = Utilities::ReadAllLinesInFileAsGridOfInts("ReadAllLinesInFileAsGridOfIntsTests.input");
+
+	ASSERT_EQ(grid.Width(), 13);
+	ASSERT_EQ(grid.Height(), 13);
+
+	for (int y = 0; y < grid.Height(); ++y)
+	{
+		for (int x = 0; x < grid.Width(); ++x)
+		{
+			EXPECT_EQ(grid.at(x, y), lines[y][x] - '0');
+		}
+	}
+}
+
 TEST(FindAllInStringTests, HandlesEmptyInput)
 {
 	auto result = Utilities::FindAllInString("", ",");

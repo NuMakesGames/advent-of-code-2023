@@ -44,6 +44,28 @@ namespace Utilities
 		return grid;
 	}
 
+	Grid2d<int> ReadAllLinesInFileAsGridOfInts(const std::filesystem::path& path)
+	{
+		auto lines = ReadAllLinesInFile(path);
+		VerifyElseCrash(lines.size() >= 1);
+
+		int width = static_cast<int>(lines[0].size());
+		int height = static_cast<int>(lines.size());
+		auto grid = Grid2d<int>{ width, height };
+
+		for (int y = 0; y < grid.Height(); ++y)
+		{
+			const auto& line = lines[y];
+			VerifyElseCrash(line.size() == width);
+			for (int x = 0; x < grid.Width(); ++x)
+			{
+				grid.at(x, y) = line[x] - '0';
+			}
+		}
+
+		return grid;
+	}
+
 	bool WriteAllLinesToFile(const std::filesystem::path& path, const std::vector<std::string>& lines)
 	{
 		auto fileStream = std::ofstream{ path };
