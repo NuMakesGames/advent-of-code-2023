@@ -12,7 +12,7 @@ using namespace Utilities;
 using namespace std::literals::chrono_literals;
 
 using Graph =
-	boost::adjacency_list<boost::listS, boost::vecS, boost::directedS, boost::no_property, boost::property<boost::edge_weight_t, int>>;
+	boost::adjacency_list<boost::vecS, boost::vecS, boost::directedS, boost::no_property, boost::property<boost::edge_weight_t, int>>;
 using Vertex = boost::graph_traits<Graph>::vertex_descriptor;
 
 namespace Puzzle17A
