@@ -117,8 +117,8 @@ const std::vector<std::vector<std::vector<std::filesystem::path>>> puzzleSampleP
 		{ "Puzzle19SampleA.input" },
 	},
 	{
-		{ "Puzzle20SampleA.input" },
-		{ "Puzzle20SampleA.input" },
+		{ "Puzzle20SampleA.input", "Puzzle20SampleB.input" },
+		{},
 	},
 	{
 		{ "Puzzle21SampleA.input" },
