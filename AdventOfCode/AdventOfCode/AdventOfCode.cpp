@@ -122,7 +122,7 @@ const std::vector<std::vector<std::vector<std::filesystem::path>>> puzzleSampleP
 	},
 	{
 		{ "Puzzle21SampleA.input" },
-		{ "Puzzle21SampleA.input" },
+		{ },
 	},
 	{
 		{ "Puzzle22SampleA.input" },
