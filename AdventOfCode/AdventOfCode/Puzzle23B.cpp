@@ -174,7 +174,7 @@ namespace Puzzle23B
 
 		// Setup a stack to run DFS
 		std::stack<GraphSearchState> toExplore;
-		toExplore.push({ iNodeStart, 0, 0ull });
+		toExplore.emplace(iNodeStart, 0, 0ull);
 		while (!toExplore.empty())
 		{
 			auto [iNode, totalWeight, visited] = toExplore.top();
@@ -201,7 +201,7 @@ namespace Puzzle23B
 
 				// Mark the node visited and continue exploring
 				nextVisited |= 1ull << iNextNode;
-				toExplore.push({ iNextNode, totalWeight + edge.weight, nextVisited });
+				toExplore.emplace(iNextNode, totalWeight + edge.weight, nextVisited);
 			}
 		}
 
