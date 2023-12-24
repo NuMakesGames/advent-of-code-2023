@@ -95,7 +95,7 @@ namespace Puzzle23B
 			{
 				toExplore.push({ node.position, direction });
 			}
-			
+
 			// Run BFS
 			while (!toExplore.empty())
 			{
@@ -137,6 +137,36 @@ namespace Puzzle23B
 		return graph;
 	}
 
+	// Search out from the end to find the number of steps to each node
+	std::vector<int> GetDistancesFromEnd(const std::vector<Node>& nodes, const Vector2d<int>& end)
+	{
+		int iEnd = static_cast<int>(std::ranges::find(nodes, end, &Node::position) - nodes.begin());
+
+		std::vector<int> result(nodes.size(), std::numeric_limits<int>::max());
+		result[iEnd] = 0;
+
+		std::queue<int> toExplore;
+		toExplore.emplace(iEnd);
+		while (!toExplore.empty())
+		{
+			int iNode = toExplore.front();
+			toExplore.pop();
+
+			for (const Edge& edge : nodes[iNode].edges)
+			{
+				int iTargetNode = edge.iTargetNode;
+				int distance = result[iNode] + 1;
+				if (result[iTargetNode] > distance)
+				{
+					result[iTargetNode] = distance;
+					toExplore.emplace(iTargetNode);
+				}
+			}
+		}
+
+		return result;
+	}
+
 	void PrintSolution(const std::filesystem::path& inputFile, bool shouldRender)
 	{
 		Grid2d<char> grid = ReadAllLinesInFileAsGrid(inputFile);
@@ -160,7 +190,24 @@ namespace Puzzle23B
 		Vector2d<int> end{ grid.Width() - 2, grid.Height() - 1 };
 		VerifyElseCrash(grid.at(start) == '.' && grid.at(end) == '.');
 
+		// Reduce the search space by compressing paths down to a grid
 		std::vector<Node> graph = CompressGridToGraph(grid, start, end);
+
+		// Build bitmasks to quickly prune paths where the end is unreachable
+		// 6 hops seems to be the best for performance for my input
+		std::vector<int> distancesFromEnd = GetDistancesFromEnd(graph, end);
+		constexpr int maxReachabilityAnalysis = 6;
+		std::vector<uint64_t> endUnreachableMask(maxReachabilityAnalysis + 1, 0ull);
+		for (int i = 0; i <= maxReachabilityAnalysis; ++i)
+		{
+			for (int j = 0; j < distancesFromEnd.size(); ++j)
+			{
+				if (distancesFromEnd[j] == i)
+				{
+					endUnreachableMask[i] |= 1ull << j;
+				}
+			}
+		}
 
 		// Verify that the graph is small enough to cache visited nodes in a 64-bit bitmask
 		VerifyElseCrash(graph.size() < sizeof(uint64_t) * 8);
@@ -184,6 +231,29 @@ namespace Puzzle23B
 			if (iNode == iNodeEnd)
 			{
 				longestPath = std::max(totalWeight, longestPath);
+				continue;
+			}
+
+			// If the end is unreachable, prune this path
+			bool isEndReachable = true;
+			int distanceFromEnd = distancesFromEnd[iNode];
+			if (distanceFromEnd <= maxReachabilityAnalysis)
+			{
+				// For the end to still be reachable, at least one node at each hop level between the current node and the end
+				// must not have been visited yet 
+				for (int i = 1; i < distanceFromEnd; ++i)
+				{
+					if ((visited & endUnreachableMask[i]) == endUnreachableMask[i])
+					{
+						isEndReachable = false;
+						break;
+					}
+				}
+			}
+
+			// Bail if we can no longer get to the end node
+			if (!isEndReachable)
+			{
 				continue;
 			}
 
