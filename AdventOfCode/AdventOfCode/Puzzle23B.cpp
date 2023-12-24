@@ -171,11 +171,10 @@ namespace Puzzle23B
 
 		// Find the longest path
 		int longestPath = 0;
-		uint64_t visited = 0ull;
 
 		// Setup a stack to run DFS
 		std::stack<GraphSearchState> toExplore;
-		toExplore.push({ iNodeStart, 0, visited });
+		toExplore.push({ iNodeStart, 0, 0ull });
 		while (!toExplore.empty())
 		{
 			auto [iNode, totalWeight, visited] = toExplore.top();
